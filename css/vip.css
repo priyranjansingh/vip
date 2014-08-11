@@ -1,0 +1,24 @@
+.center-top {
+    position: absolute;
+    top: 40%;
+    left: 0;
+    right: 0;
+}
+.center-bottom {
+    position: absolute;
+    top: 62%;
+    left: 0;
+    right: 0;
+}
+
+.list-download {
+    margin-top: 10px;
+}
+.list-crate {
+    margin-top: 10px;
+    margin-right: 40px;
+}
+.scrollable-ajax {
+    padding-bottom: 50px;
+    height: 90%;
+}
