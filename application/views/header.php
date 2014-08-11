@@ -107,7 +107,7 @@
                                                         <i class="fa fa-angle-left text"></i>
                                                         <i class="fa fa-angle-down text-active"></i> 
                                                     </span> 
-                                                    <i class="icon-chemistry icon"> </i> 
+                                                    <i class="icon-music-tone-alt icon text-info"> </i> 
                                                     <span>Songs</span>
                                                 </a>
 
