@@ -113,67 +113,38 @@
 
                                                 <ul class="nav dk text-sm"> 
                                                     <?php
-                                                    $query = $this->db->get('genre');
-
+                                                    $query = $this->db->get_where('genre', array('parent' => 0));
                                                     foreach ($query->result() as $row) {
-                                                     ?>
-                                                    <li> 
-                                                        <a href="#table" class="auto"> 
-                                                            <span class="pull-right text-muted"> 
-                                                                <i class="fa fa-angle-left text"></i>
-                                                                <i class="fa fa-angle-down text-active"></i> </span> 
-                                                            <i class="fa fa-angle-right text-xs"></i>
-                                                            <span><?php  echo $row->name; ?></span>
-                                                        </a> 
-                                                        <ul class="nav dker"> 
-                                                            <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span>Table static</span> </a> </li>
-                                                            <li> <a href="table-datatable.html"> <i class="fa fa-angle-right"></i> <span>Datatable</span> </a> </li> 
-                                                        </ul> 
-                                                    </li> 
-                                                    <?php
-                                                       
+                                                        ?>
+                                                        <li> 
+                                                            <a href="#table" class="auto"> 
+                                                                <span class="pull-right text-muted"> 
+                                                                    <i class="fa fa-angle-left text"></i>
+                                                                    <i class="fa fa-angle-down text-active"></i> </span> 
+                                                                <i class="fa fa-angle-right text-xs"></i>
+                                                                <span><?php echo $row->name; ?></span>
+                                                            </a> 
+                                                            <?php
+                                                            $query_child = $this->db->get_where('genre', array('parent' => $row->id));
+                                                            if (!empty($query_child->result())) {
+                                                                ?>
+                                                            <ul class="nav dker"> 
+                                                             <?php
+                                                                foreach ($query_child->result() as $row) {
+                                                                    ?>
+                                                                        <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
+                                                                    <?php
+                                                                }
+                                                                ?>
+                                                            </ul> 
+                                                               <?php         
+                                                            }
+                                                            ?>
+
+                                                        </li> 
+                                                        <?php
                                                     }
                                                     ?>
-                                                    
-                                                    <li> 
-                                                        <a href="#table" class="auto"> 
-                                                            <span class="pull-right text-muted"> 
-                                                                <i class="fa fa-angle-left text"></i>
-                                                                <i class="fa fa-angle-down text-active"></i> </span> 
-                                                            <i class="fa fa-angle-right text-xs"></i>
-                                                            <span>Pop</span>
-                                                        </a> 
-                                                        <ul class="nav dker"> 
-                                                            <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span>Table static</span> </a> </li>
-                                                            <li> <a href="table-datatable.html"> <i class="fa fa-angle-right"></i> <span>Datatable</span> </a> </li> 
-                                                        </ul> 
-                                                    </li> 
-                                                    <li> 
-                                                        <a href="#table" class="auto"> 
-                                                            <span class="pull-right text-muted"> 
-                                                                <i class="fa fa-angle-left text"></i>
-                                                                <i class="fa fa-angle-down text-active"></i> </span> 
-                                                            <i class="fa fa-angle-right text-xs"></i>
-                                                            <span>Dance</span>
-                                                        </a> 
-                                                        <ul class="nav dker"> 
-                                                            <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span>Table static</span> </a> </li>
-                                                            <li> <a href="table-datatable.html"> <i class="fa fa-angle-right"></i> <span>Datatable</span> </a> </li> 
-                                                        </ul> 
-                                                    </li> 
-                                                    <li> 
-                                                        <a href="#table" class="auto"> 
-                                                            <span class="pull-right text-muted"> 
-                                                                <i class="fa fa-angle-left text"></i>
-                                                                <i class="fa fa-angle-down text-active"></i> </span> 
-                                                            <i class="fa fa-angle-right text-xs"></i>
-                                                            <span>Country</span>
-                                                        </a> 
-                                                        <ul class="nav dker"> 
-                                                            <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span>Table static</span> </a> </li>
-                                                            <li> <a href="table-datatable.html"> <i class="fa fa-angle-right"></i> <span>Datatable</span> </a> </li> 
-                                                        </ul> 
-                                                    </li> 
                                                 </ul> 
                                             </li>
                                             <li>
