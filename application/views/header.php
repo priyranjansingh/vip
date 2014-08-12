@@ -21,6 +21,22 @@
             <script src="<?php echo base_url('js/ie/respond.min.js'); ?>"></script>
             <script src="<?php echo base_url('js/ie/excanvas.js'); ?>"></script>
         <![endif]-->
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script>
+            
+            $(document).ready(function(){
+              $("#genre").click(function(){
+               $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url() ?>vip/ajax_songs/",
+                    data : {type:"genre"},
+                    success : function(data){
+                     $("#bjax-target").html(data);  
+                    }
+                  });
+              }); 
+            });
+        </script>    
     </head>
     <body >
         <section class="vbox">
@@ -95,7 +111,7 @@
                                             <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">Discover</li>
 
                                             <li>
-                                                <a href="javascript:void(null)" my-ajax data-url="songs"> 
+                                                <a id="genre" href="javascript:void(null)"> 
                                                     <i class="icon-music-tone-alt icon text-info"></i> 
                                                     <span class="font-bold">Genres</span> 
                                                 </a>

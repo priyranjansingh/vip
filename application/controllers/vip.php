@@ -32,6 +32,19 @@ class Vip extends CI_Controller {
         $data['genres'] = $this->load->view('helper/song-genres', $data, true);
         $this->load->view('songs', $data);
     }
+    public function ajax_songs()
+    {
+        $data = array();
+        $query = $this->db->get('song_lists');
+        $data['songs_result'] = $query->result_array();
+      
+        $query_genre = $this->db->get_where('genre',array('parent'=>'0'));
+        $data['genre_result'] = $query_genre->result_array();
+      
+        $data['genreName'] = 'All';
+        $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
+        $this->load->view('ajax-songs', $data);
+    }        
 
     public function videos($id = null) {
         $data = array();
