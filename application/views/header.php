@@ -21,24 +21,74 @@
             <script src="<?php echo base_url('js/ie/respond.min.js'); ?>"></script>
             <script src="<?php echo base_url('js/ie/excanvas.js'); ?>"></script>
         <![endif]-->
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="<?php echo base_url('js/jquery.js'); ?>"></script> 
         <script>
-            
-            $(document).ready(function(){
-              $("#genre").click(function(){
-               $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>vip/ajax_songs/",
-                    data : {type:"genre"},
-                    success : function(data){
-                     $("#bjax-target").html(data);  
-                    }
-                  });
-              }); 
+
+            $(document).ready(function() {
+                var boundary = 1;
+                $("#genre").click(function() {
+                    NProgress.inc();
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url() ?>vip/ajax_songs/",
+                        data: {type: "genre", boundary: boundary},
+                        success: function(data) {
+                            boundary = boundary + 1;
+                            $("#bjax-target").html(data);
+                            NProgress.done(true);
+                            $('#selected-genres-data').scroll(function() {
+                                //console.log($('#selected-genres-data')[0].scrollTop+"--"+$('#selected-genres-data')[0].scrollHeight);
+                                
+                                if ($('#selected-genres-data')[0].scrollTop >= ($('#selected-genres-data')[0].scrollHeight) * 0.55)
+                                {
+                                    
+                                    
+                                    $('div#loadmoreajaxloader').show();
+                                    NProgress.inc();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "<?php echo base_url() ?>vip/ajax_loading",
+                                        data: {type: "genre", boundary: boundary},
+                                        success: function(html) {
+                                            boundary = boundary + 1;
+                                            //alert(boundary);
+                                            $('div#loadmoreajaxloader').hide();
+                                            $('#song-list').append(html);
+                                            NProgress.done(true);
+                                        }
+                                    });
+
+                                }
+
+//                                if ($('#selected-genres-data')[0].scrollHeight - 50 < $('#selected-genres-data')[0].scrollTop + $('#selected-genres-data')[0].offsetHeight) {
+//                                    $('div#loadmoreajaxloader').show();
+//                                    NProgress.inc();
+//                                    setTimeout(function() {
+//
+//                                        $.ajax({
+//                                            type: "POST",
+//                                            url: "<?php echo base_url() ?>vip/ajax_loading",
+//                                            data: {type: "genre", boundary: boundary},
+//                                            success: function(html) {
+//                                                boundary = boundary + 1;
+//                                                alert(boundary);
+//                                                $('div#loadmoreajaxloader').hide();
+//                                                $('#song-list').append(html);
+//                                                NProgress.done(true);
+//                                            }
+//                                        });
+//
+//                                    }, 3000);
+//                                }
+                            });
+                        }
+                    });
+                });
             });
         </script>    
     </head>
     <body >
+
         <section class="vbox">
             <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
                 <div class="navbar-header aside bg-info nav-xs">
@@ -111,10 +161,49 @@
                                             <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">Discover</li>
 
                                             <li>
-                                                <a id="genre" href="javascript:void(null)"> 
-                                                    <i class="icon-music-tone-alt icon text-info"></i> 
-                                                    <span class="font-bold">Genres</span> 
+                                                <a id="genre" href="javascript:void(null)" class="auto"> 
+                                                    <span class="pull-right text-muted"> 
+                                                        <i class="fa fa-angle-left text"></i>
+                                                        <i class="fa fa-angle-down text-active"></i> 
+                                                    </span> 
+                                                    <i class="icon-music-tone-alt icon text-info"> </i> 
+                                                    <span>Genres</span>
                                                 </a>
+                                                <ul class="nav dk text-sm"> 
+                                                    <?php
+                                                    $query = $this->db->get_where('genre', array('parent' => 0));
+                                                    foreach ($query->result() as $row) {
+                                                        ?>
+                                                        <li> 
+                                                            <a href="#table" class="auto"> 
+                                                                <span class="pull-right text-muted"> 
+                                                                    <i class="fa fa-angle-right text"></i>
+                                                                    <i class="fa fa-angle-down text-active"></i> </span> 
+                                                                <i class="fa fa-angle-right text-xs"></i>
+                                                                <span><?php echo $row->name; ?></span>
+                                                            </a> 
+                                                            <?php
+                                                            $query_child = $this->db->get_where('genre', array('parent' => $row->id));
+                                                            if (!empty($query_child->result())) {
+                                                                ?>
+                                                                <ul class="nav dker"> 
+                                                                    <?php
+                                                                    foreach ($query_child->result() as $row) {
+                                                                        ?>
+                                                                        <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                </ul> 
+                                                                <?php
+                                                            }
+                                                            ?>
+
+                                                        </li> 
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </ul> 
                                             </li>
 
                                             <li> 
@@ -144,16 +233,16 @@
                                                             $query_child = $this->db->get_where('genre', array('parent' => $row->id));
                                                             if (!empty($query_child->result())) {
                                                                 ?>
-                                                            <ul class="nav dker"> 
-                                                             <?php
-                                                                foreach ($query_child->result() as $row) {
-                                                                    ?>
-                                                                        <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
+                                                                <ul class="nav dker"> 
                                                                     <?php
-                                                                }
-                                                                ?>
-                                                            </ul> 
-                                                               <?php         
+                                                                    foreach ($query_child->result() as $row) {
+                                                                        ?>
+                                                                        <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                </ul> 
+                                                                <?php
                                                             }
                                                             ?>
 
