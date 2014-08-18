@@ -1,7 +1,7 @@
 <section class="w-f-md " style="height: 90%;">
     <section class="hbox stretch">
         <!-- side content -->
-<!--        <aside class="aside bg-light dk" id="sidebar">
+        <aside class="aside bg-light dk" id="sidebar">
             <section class="vbox animated fadeInUp">
                 <section class="scrollable hover">
 
@@ -17,11 +17,11 @@
                     </div>
                 </section>
             </section>
-        </aside>-->
+        </aside>
         <!-- / side content -->
         <section>
             <section class="vbox">
-                <section style="border:0px solid red;" class="scrollable padder-lg scrollable-ajax" id="selected-genres-data" >
+                <section class="scrollable padder-lg scrollable-ajax" id="selected-genres-data" >
 <?php echo $genres; ?>
                 </section>
             </section>

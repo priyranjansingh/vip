@@ -5,6 +5,7 @@ var type = '';
 var genreId = 0;
 function renderContent(id) {
     
+    
     NProgress.inc();
     genreId = 0;
     type = id;
@@ -26,7 +27,7 @@ function renderContent(id) {
                 getDataByGenre(type,id);
             });
             
-            $('#selected-genres-data').scroll(function(){zz
+            $('#selected-genres-data').scroll(function(){
                 if($('#selected-genres-data')[0].scrollHeight - 50 < $('#selected-genres-data')[0].scrollTop + $('#selected-genres-data')[0].offsetHeight){
                     $('div#loadmoreajaxloader').show();
                     NProgress.inc();
