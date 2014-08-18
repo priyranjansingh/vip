@@ -34,8 +34,14 @@ class Vip extends CI_Controller {
     }
     public function ajax_songs()
     {
+        $boundary = $this->input->post('boundary'); 
+        if(!empty($boundary))
+        {
+              $limit = ($boundary*24)-24;
+              $offset = 24;
+        }    
         $data = array();
-        $query = $this->db->get('song_lists');
+        $query = $this->db->get('song_lists',$offset,$limit);
         $data['songs_result'] = $query->result_array();
       
         $query_genre = $this->db->get_where('genre',array('parent'=>'0'));
@@ -44,7 +50,16 @@ class Vip extends CI_Controller {
         $data['genreName'] = 'All';
         $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
         $this->load->view('ajax-songs', $data);
+    } 
+    public function test()
+    {
+         $data = array();
+        $query = $this->db->get('song_lists',2,0);
+        $data['songs_result'] = $query->result_array();
+        print("<pre>");
+        print_r($data['songs_result']);
     }        
+            
 
     public function videos($id = null) {
         $data = array();
@@ -78,6 +93,19 @@ class Vip extends CI_Controller {
             $this->load->view('song-loading', $data);
         }
         
+    }
+     public function ajax_loading() {
+        $data = array();
+         $boundary = $this->input->post('boundary'); 
+        if(!empty($boundary))
+        {
+              $limit = ($boundary*24)-24;
+              $offset = 24;
+        }    
+        $data = array();
+        $query = $this->db->get('song_lists',$offset,$limit);
+        $data['songs_result'] = $query->result_array();
+        $this->load->view('song-loading', $data);
     }
 
     public function genres() {
