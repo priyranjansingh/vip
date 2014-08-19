@@ -44,13 +44,34 @@ class Vip extends CI_Controller {
         $query = $this->db->get('song_lists',$offset,$limit);
         $data['songs_result'] = $query->result_array();
       
-        $query_genre = $this->db->get_where('genre',array('parent'=>'0'));
-        $data['genre_result'] = $query_genre->result_array();
-      
         $data['genreName'] = 'All';
         $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
         $this->load->view('ajax-songs', $data);
     } 
+    public function genre_songs()
+    {
+        $genre_id =  $this->input->post('id');
+        $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
+        $genre_name = $genre_query->row_array();
+        $query = $this->db->get_where('song_lists',array("genre"=>$genre_id));
+        $data['songs_result'] = $query->result_array();
+        $data['genreName'] = $genre_name['name'];
+        $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
+        $this->load->view('ajax-songs', $data);
+        
+    }     
+     public function subgenre_songs()
+    {
+        $genre_id =  $this->input->post('id');
+        $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
+        $genre_name = $genre_query->row_array();
+        $query = $this->db->get_where('song_lists',array("subGenre"=>$genre_id));
+        $data['songs_result'] = $query->result_array();
+        $data['genreName'] = $genre_name['name'];
+        $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
+        $this->load->view('ajax-songs', $data);
+        
+    }        
     public function test()
     {
          $data = array();

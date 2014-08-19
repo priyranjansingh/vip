@@ -23,8 +23,9 @@
         <![endif]-->
         <script src="<?php echo base_url('js/jquery.js'); ?>"></script> 
         <script>
-
+             var base_url = "<?php echo base_url(); ?>";
             $(document).ready(function() {
+               
                 var boundary = 1;
                 $("#genre").click(function() {
                     NProgress.inc();
@@ -175,7 +176,7 @@
                                                     foreach ($query->result() as $row) {
                                                         ?>
                                                         <li> 
-                                                            <a href="#table" class="auto"> 
+                                                            <a href="javascript:void()" class="auto genre" id="<?php echo $row->id; ?>"> 
                                                                 <span class="pull-right text-muted"> 
                                                                     <i class="fa fa-angle-right text"></i>
                                                                     <i class="fa fa-angle-down text-active"></i> </span> 
@@ -190,7 +191,7 @@
                                                                     <?php
                                                                     foreach ($query_child->result() as $row) {
                                                                         ?>
-                                                                        <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
+                                                                        <li> <a href="javascript:void()" class="subgenre" id="<?php echo $row->id; ?>"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
                                                                         <?php
                                                                     }
                                                                     ?>

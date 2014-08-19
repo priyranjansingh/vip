@@ -71,6 +71,37 @@ function getDataByGenre(type, id) {
         }
     });
 }
+$(document).ready(function(){
+   $(".genre").click(function(){
+       var id = $(this).attr("id");
+        NProgress.inc();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url+"vip/genre_songs/",
+                        data: {id:id},
+                        success: function(data) {
+                            $("#bjax-target").html(data);
+                            NProgress.done(true);
+                        }
+                    });
+   }); 
+   $(".subgenre").click(function(){
+       var id = $(this).attr("id");
+        NProgress.inc();
+                    $.ajax({
+                        type: "POST",
+                        url: base_url+"vip/subgenre_songs/",
+                        data: {id:id},
+                        success: function(data) {
+                            $("#bjax-target").html(data);
+                            NProgress.done(true);
+                        }
+                    });
+   }); 
+});
+
+
+
 
 
 
