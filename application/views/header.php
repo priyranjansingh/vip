@@ -38,12 +38,10 @@
                             $("#bjax-target").html(data);
                             NProgress.done(true);
                             $('#selected-genres-data').scroll(function() {
-                                //console.log($('#selected-genres-data')[0].scrollTop+"--"+$('#selected-genres-data')[0].scrollHeight);
                                 
-                                if ($('#selected-genres-data')[0].scrollTop >= ($('#selected-genres-data')[0].scrollHeight) * 0.55)
+                                var diff = ($('#selected-genres-data')[0].scrollHeight)- ($('#selected-genres-data')[0].scrollTop);
+                                if (diff <= 450)
                                 {
-                                    
-                                    
                                     $('div#loadmoreajaxloader').show();
                                     NProgress.inc();
                                     $.ajax({
@@ -52,35 +50,13 @@
                                         data: {type: "genre", boundary: boundary},
                                         success: function(html) {
                                             boundary = boundary + 1;
-                                            //alert(boundary);
+                                            
                                             $('div#loadmoreajaxloader').hide();
                                             $('#song-list').append(html);
                                             NProgress.done(true);
                                         }
                                     });
-
                                 }
-
-//                                if ($('#selected-genres-data')[0].scrollHeight - 50 < $('#selected-genres-data')[0].scrollTop + $('#selected-genres-data')[0].offsetHeight) {
-//                                    $('div#loadmoreajaxloader').show();
-//                                    NProgress.inc();
-//                                    setTimeout(function() {
-//
-//                                        $.ajax({
-//                                            type: "POST",
-//                                            url: "<?php echo base_url() ?>vip/ajax_loading",
-//                                            data: {type: "genre", boundary: boundary},
-//                                            success: function(html) {
-//                                                boundary = boundary + 1;
-//                                                alert(boundary);
-//                                                $('div#loadmoreajaxloader').hide();
-//                                                $('#song-list').append(html);
-//                                                NProgress.done(true);
-//                                            }
-//                                        });
-//
-//                                    }, 3000);
-//                                }
                             });
                         }
                     });
