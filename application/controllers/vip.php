@@ -43,7 +43,9 @@ class Vip extends CI_Controller {
         $data = array();
         $query = $this->db->get('song_lists',$offset,$limit);
         $data['songs_result'] = $query->result_array();
-      
+        $query_total = $this->db->get('song_lists');
+        $total_page = $query_total->num_rows();
+        $data['total_records'] = ceil($total_page/24);
         $data['genreName'] = 'All';
         $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
         $this->load->view('ajax-songs', $data);

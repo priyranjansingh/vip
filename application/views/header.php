@@ -37,11 +37,8 @@
                             boundary = boundary + 1;
                             $("#bjax-target").html(data);
                             NProgress.done(true);
-                            $('#selected-genres-data').scroll(function() {
-                                
-                                var diff = ($('#selected-genres-data')[0].scrollHeight)- ($('#selected-genres-data')[0].scrollTop);
-                                if (diff <= 450)
-                                {
+                            $('#load_more').click(function() {
+                                    $('#loader_image').show();
                                     $('div#loadmoreajaxloader').show();
                                     NProgress.inc();
                                     $.ajax({
@@ -49,14 +46,16 @@
                                         url: "<?php echo base_url() ?>vip/ajax_loading",
                                         data: {type: "genre", boundary: boundary},
                                         success: function(html) {
+                                            $("#current_page").html(boundary);
+                                             
                                             boundary = boundary + 1;
                                             
-                                            $('div#loadmoreajaxloader').hide();
+                                            $('#loader_image').hide();
                                             $('#song-list').append(html);
                                             NProgress.done(true);
                                         }
                                     });
-                                }
+                              
                             });
                         }
                     });

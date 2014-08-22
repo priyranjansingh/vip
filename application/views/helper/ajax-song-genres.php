@@ -9,6 +9,7 @@
 </div>
 <div id="loadmoreajaxloader" style="display: block;">
     <center>
-        <img src="images/ajax-loader.gif" />
+        <input type="button" name="load_more" id="load_more" value="Load More"> (<span id="current_page">1</span> of <?php echo $total_records  ?>)
+        <img style="display: none;" id="loader_image" src="images/ajax-loader.gif" />
     </center>
 </div>
