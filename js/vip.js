@@ -73,28 +73,84 @@ function getDataByGenre(type, id) {
 }
 $(document).ready(function(){
    $(".genre").click(function(){
+       var boundary = 1;
        var id = $(this).attr("id");
         NProgress.inc();
                     $.ajax({
                         type: "POST",
                         url: base_url+"vip/genre_songs/",
-                        data: {id:id},
+                        data: {id:id,boundary: boundary},
                         success: function(data) {
+                            boundary = boundary + 1;
                             $("#bjax-target").html(data);
                             NProgress.done(true);
+                             $('#load_more').click(function() {
+                                    $('#loader_image').show();
+                                    $('div#loadmoreajaxloader').show();
+                                    NProgress.inc();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: base_url+"vip/ajax_genre_loading",
+                                        data: {type: "genre", boundary: boundary, id:id},
+                                        success: function(html) {
+                                            $("#current_page").html(boundary);
+                                            var total_page = $("#total_page").html();
+                                            var current_page = $("#current_page").html();
+                                            //alert( $("#total_page").html()+$("#current_page").html());
+                                            if(total_page == current_page)
+                                            {
+                                                $("#load_more").hide();
+                                            }
+                                            boundary = boundary + 1;
+                                            
+                                            $('#loader_image').hide();
+                                            $('#song-list').append(html);
+                                            NProgress.done(true);
+                                        }
+                                    });
+                              
+                            });
                         }
                     });
    }); 
    $(".subgenre").click(function(){
+       var boundary = 1;
        var id = $(this).attr("id");
         NProgress.inc();
                     $.ajax({
                         type: "POST",
                         url: base_url+"vip/subgenre_songs/",
-                        data: {id:id},
+                         data: {id:id,boundary: boundary},
                         success: function(data) {
+                               boundary = boundary + 1;
                             $("#bjax-target").html(data);
                             NProgress.done(true);
+                             $('#load_more').click(function() {
+                                    $('#loader_image').show();
+                                    $('div#loadmoreajaxloader').show();
+                                    NProgress.inc();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: base_url+"vip/ajax_genre_loading",
+                                        data: {type: "genre", boundary: boundary, id:id},
+                                        success: function(html) {
+                                            $("#current_page").html(boundary);
+                                            var total_page = $("#total_page").html();
+                                            var current_page = $("#current_page").html();
+                                            //alert( $("#total_page").html()+$("#current_page").html());
+                                            if(total_page == current_page)
+                                            {
+                                                $("#load_more").hide();
+                                            }
+                                            boundary = boundary + 1;
+                                            
+                                            $('#loader_image').hide();
+                                            $('#song-list').append(html);
+                                            NProgress.done(true);
+                                        }
+                                    });
+                              
+                            });
                         }
                     });
    }); 

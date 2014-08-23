@@ -26,8 +26,8 @@
              var base_url = "<?php echo base_url(); ?>";
             $(document).ready(function() {
                
-                var boundary = 1;
                 $("#genre").click(function() {
+                    var boundary = 1;
                     NProgress.inc();
                     $.ajax({
                         type: "POST",
@@ -47,7 +47,13 @@
                                         data: {type: "genre", boundary: boundary},
                                         success: function(html) {
                                             $("#current_page").html(boundary);
-                                             
+                                            var total_page = $("#total_page").html();
+                                            var current_page = $("#current_page").html();
+                                            //alert( $("#total_page").html()+$("#current_page").html());
+                                            if(total_page == current_page)
+                                            {
+                                                $("#load_more").hide();
+                                            }
                                             boundary = boundary + 1;
                                             
                                             $('#loader_image').hide();
