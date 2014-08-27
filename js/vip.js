@@ -131,7 +131,7 @@ $(document).ready(function(){
                                     NProgress.inc();
                                     $.ajax({
                                         type: "POST",
-                                        url: base_url+"vip/ajax_genre_loading",
+                                        url: base_url+"vip/ajax_subgenre_loading",
                                         data: {type: "genre", boundary: boundary, id:id},
                                         success: function(html) {
                                             $("#current_page").html(boundary);
@@ -153,7 +153,22 @@ $(document).ready(function(){
                             });
                         }
                     });
-   }); 
+   });
+   
+   $("#video").click(function(){
+                    var boundary = 1;
+                    NProgress.inc();
+               $.ajax({
+                        type: "POST",
+                        url: base_url+"vip/ajax_videos/",
+                        data: {type: "genre", boundary: boundary},
+                        success: function(data) {
+                            $("#bjax-target").html(data);
+                             NProgress.done(true);
+                        }
+                    });
+   });
+   
 });
 
 

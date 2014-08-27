@@ -180,33 +180,27 @@
                                                                 <?php
                                                             }
                                                             ?>
-
                                                         </li> 
                                                         <?php
                                                     }
                                                     ?>
                                                 </ul> 
                                             </li>
-
-                                            <li> 
-                                                <a href="#" class="auto"> 
-                                                    <span class="pull-right text-muted"> 
-                                                        <i class="fa fa-angle-left text"></i>
-                                                        <i class="fa fa-angle-down text-active"></i> 
-                                                    </span> 
-                                                    <i class="icon-music-tone-alt icon text-info"> </i> 
-                                                    <span>Songs</span>
+                                         
+                                            <li>
+                                                <a id="video" href="javascript:void(null)">
+                                                    <i class="icon-social-youtube icon text-primary"></i> 
+                                                    <span class="font-bold">Video</span> 
                                                 </a>
-
-                                                <ul class="nav dk text-sm"> 
+                                                  <ul class="nav dk text-sm"> 
                                                     <?php
                                                     $query = $this->db->get_where('genre', array('parent' => 0));
                                                     foreach ($query->result() as $row) {
                                                         ?>
                                                         <li> 
-                                                            <a href="#table" class="auto"> 
+                                                            <a href="javascript:void()" class="auto genre" id="<?php echo $row->id; ?>"> 
                                                                 <span class="pull-right text-muted"> 
-                                                                    <i class="fa fa-angle-left text"></i>
+                                                                    <i class="fa fa-angle-right text"></i>
                                                                     <i class="fa fa-angle-down text-active"></i> </span> 
                                                                 <i class="fa fa-angle-right text-xs"></i>
                                                                 <span><?php echo $row->name; ?></span>
@@ -219,7 +213,7 @@
                                                                     <?php
                                                                     foreach ($query_child->result() as $row) {
                                                                         ?>
-                                                                        <li> <a href="table-static.html"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
+                                                                        <li> <a href="javascript:void()" class="subgenre" id="<?php echo $row->id; ?>"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
                                                                         <?php
                                                                     }
                                                                     ?>
@@ -227,18 +221,11 @@
                                                                 <?php
                                                             }
                                                             ?>
-
                                                         </li> 
                                                         <?php
                                                     }
                                                     ?>
                                                 </ul> 
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(null)" my-ajax data-url="videos">
-                                                    <i class="icon-social-youtube icon text-primary"></i> 
-                                                    <span class="font-bold">Video</span> 
-                                                </a>
                                             </li>
                                             <li>
                                                 <a href="javascript:void(null)" my-ajax data-url="crate"> 
