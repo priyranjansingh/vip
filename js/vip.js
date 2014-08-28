@@ -155,19 +155,46 @@ $(document).ready(function(){
                     });
    });
    
-   $("#video").click(function(){
+  $("#video").click(function() {
                     var boundary = 1;
                     NProgress.inc();
-               $.ajax({
+                    $.ajax({
                         type: "POST",
                         url: base_url+"vip/ajax_videos/",
                         data: {type: "genre", boundary: boundary},
                         success: function(data) {
+                            boundary = boundary + 1;
                             $("#bjax-target").html(data);
-                             NProgress.done(true);
+                            NProgress.done(true);
+                            $('#load_more').click(function() {
+                                    $('#loader_image').show();
+                                    $('div#loadmoreajaxloader').show();
+                                    NProgress.inc();
+                                    $.ajax({
+                                        type: "POST",
+                                        url: base_url+"vip/ajax_video_loading",
+                                        data: {type: "genre", boundary: boundary},
+                                        success: function(html) {
+                                            $("#current_page").html(boundary);
+                                            var total_page = $("#total_page").html();
+                                            var current_page = $("#current_page").html();
+                                            //alert( $("#total_page").html()+$("#current_page").html());
+                                            if(total_page == current_page)
+                                            {
+                                                $("#load_more").hide();
+                                            }
+                                            boundary = boundary + 1;
+                                            
+                                            $('#loader_image').hide();
+                                            $('#song-list').append(html);
+                                            NProgress.done(true);
+                                        }
+                                    });
+                              
+                            });
                         }
                     });
-   });
+                });
    
 });
 

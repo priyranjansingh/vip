@@ -23,7 +23,7 @@
         <![endif]-->
         <script src="<?php echo base_url('js/jquery.js'); ?>"></script> 
         <script>
-             var base_url = "<?php echo base_url(); ?>";
+            var base_url = "<?php echo base_url(); ?>";
             $(document).ready(function() {
                
                 $("#genre").click(function() {
