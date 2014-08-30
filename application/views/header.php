@@ -153,7 +153,7 @@
                                                 </a>
                                                 <ul class="nav dk text-sm"> 
                                                     <?php
-                                                    $query = $this->db->get_where('genre', array('parent' => 0));
+                                                    $query = $this->db->get_where('genre', array('parent' => 0,'type'=>1));
                                                     foreach ($query->result() as $row) {
                                                         ?>
                                                         <li> 
@@ -194,11 +194,11 @@
                                                 </a>
                                                   <ul class="nav dk text-sm"> 
                                                     <?php
-                                                    $query = $this->db->get_where('genre', array('parent' => 0));
+                                                    $query = $this->db->get_where('genre', array('parent' => 0,'type'=>2));
                                                     foreach ($query->result() as $row) {
                                                         ?>
                                                         <li> 
-                                                            <a href="javascript:void()" class="auto genre" id="<?php echo $row->id; ?>"> 
+                                                            <a href="javascript:void()" class="auto video_genre" id="<?php echo $row->id; ?>"> 
                                                                 <span class="pull-right text-muted"> 
                                                                     <i class="fa fa-angle-right text"></i>
                                                                     <i class="fa fa-angle-down text-active"></i> </span> 
@@ -213,7 +213,7 @@
                                                                     <?php
                                                                     foreach ($query_child->result() as $row) {
                                                                         ?>
-                                                                        <li> <a href="javascript:void()" class="subgenre" id="<?php echo $row->id; ?>"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
+                                                                        <li> <a href="javascript:void()" class="video_subgenre" id="<?php echo $row->id; ?>"> <i class="fa fa-angle-right"></i> <span><?php echo $row->name; ?></span> </a> </li>
                                                                         <?php
                                                                     }
                                                                     ?>
