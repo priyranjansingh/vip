@@ -73,7 +73,7 @@ $(document).ready(function(){
                 var id = $(this).attr("id");
                     $("#jplayer_N").jPlayer("setMedia", {
                       mp3:"/vip/assets/musics/"+id,
-                      title:"Sawan Aaya Hai",
+                      title:id,
                       artist:"Arijit Singh",
                     }).jPlayer("play");
             });
