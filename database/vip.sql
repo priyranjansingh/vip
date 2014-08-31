@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2014 at 11:01 AM
+-- Generation Time: Aug 31, 2014 at 01:20 PM
 -- Server version: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `genre` (
   `created_by` char(36) COLLATE utf8_unicode_ci NOT NULL,
   `modified_user_id` char(36) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `genre`
@@ -165,15 +165,15 @@ CREATE TABLE IF NOT EXISTS `song_lists` (
   `isDeleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=514 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=388 ;
 
 --
 -- Dumping data for table `song_lists`
 --
 
 INSERT INTO `song_lists` (`id`, `songType`, `songName`, `slug`, `version`, `fileSize`, `bpm`, `songDescription`, `filePath`, `genre`, `fileName`, `thumbnail`, `subGenre`, `artistName`, `status`, `userId`, `total_play`, `total_download`, `top_of_the_week`, `createdAt`, `updatedAt`, `isDeleted`) VALUES
-(1, 1, 'Dont Panic111 (Dirty)', 'Dont Panic (Dirty)', '6', '', NULL, NULL, '', '1', NULL, NULL, 5, NULL, 1, NULL, 0, 0, 0, NULL, NULL, 0),
-(2, 1, 'Heavenly People (Dirty)', 'Heavenly People (Dirty)', '6', '', NULL, NULL, '', '1', NULL, NULL, 5, NULL, 1, NULL, 0, 0, 0, NULL, NULL, 0),
+(1, 1, 'Sawan Aaya Hai', 'Dont Panic (Dirty)', '6', '', NULL, NULL, '', '1', 'Sawan Aaya Hai.mp3', NULL, 5, NULL, 1, NULL, 0, 0, 0, NULL, NULL, 0),
+(2, 1, 'Kehana Hai', 'Heavenly People (Dirty)', '6', '', NULL, NULL, '', '1', 'Kehana Hai.mp3', NULL, 5, NULL, 1, NULL, 0, 0, 0, NULL, NULL, 0),
 (3, 1, 'test', 'test', '6', '', NULL, NULL, '', '1', NULL, NULL, 6, NULL, 1, NULL, 0, 0, 0, NULL, NULL, 0),
 (4, 1, 'test', 'test', '6', '', NULL, NULL, '', '1', NULL, NULL, 6, NULL, 1, NULL, 0, 0, 0, NULL, NULL, 0),
 (5, 1, 'test', 'test', '6', '', NULL, NULL, '', '1', NULL, NULL, 6, NULL, 1, NULL, 0, 0, 0, NULL, NULL, 0),
