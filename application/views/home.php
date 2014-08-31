@@ -18,7 +18,7 @@
                                             Song Name
                                         </a> 
                                     </div>
-                                    <div class="center text-center m-t-n"> <a href="#"><i class="icon-control-play i-2x"></i></a> 
+                                    <div class="center text-center m-t-n"> <a href="#"><i  id="Sawan Aaya Hai.mp3" class="icon-control-play play i-2x"></i></a> 
                                     </div>
                                     <div class="center-bottom text-center m-t-n">
                                         <a href="#">

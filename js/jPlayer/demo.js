@@ -67,6 +67,18 @@ $(document).ready(function(){
   $(document).on($.jPlayer.event.play, myPlaylist.cssSelector.jPlayer,  function(){
     $('.musicbar').addClass('animate');
   });
+$(document).ready(function(){
+     $("body").on("click", ".play", function() {
+                $("#jplayer_N").jPlayer("clearMedia");
+                var id = $(this).attr("id");
+                    $("#jplayer_N").jPlayer("setMedia", {
+                      mp3:"/vip/assets/musics/"+id,
+                      title:"Sawan Aaya Hai",
+                      artist:"Arijit Singh",
+                    }).jPlayer("play");
+            });
+});
+   
 
   $(document).on('click', '.jp-play-me', function(e){
     e && e.preventDefault();
