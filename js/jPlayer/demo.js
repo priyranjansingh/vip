@@ -3,50 +3,7 @@ $(document).ready(function(){
   var myPlaylist = new jPlayerPlaylist({
     jPlayer: "#jplayer_N",
     cssSelectorAncestor: "#jp_container_N"
-  }, [
-    {
-      title:"Busted Chump",
-      artist:"ADG3",
-      mp3:"/vip/assets/musics/adg3com_bustedchump.mp3",
-      poster: "/vip/images/m0.jpg"
-    },
-    {
-      title:"Chucked Knuckles",
-      artist:"3studios",
-      mp3:"/vip/assets/musics/adg3com_chuckedknuckles.mp3",
-      poster: "/vip/images/m0.jpg"
-    },
-    {
-      title:"Cloudless Days",
-      artist:"ADG3 Studios",
-      mp3:"/vip/assets/musics/adg3com_cloudlessdays.mp3",
-      poster: "/vip/images/m0.jpg"
-    },
-    {
-      title:"Core Issues",
-      artist:"Studios",
-      mp3:"/vip/assets/musics/adg3com_coreissues.mp3",
-      poster: "/vip/images/m0.jpg"
-    },
-    {
-      title:"Cryptic Psyche",
-      artist:"ADG3",
-      mp3:"/vip/assets/musics/adg3com_crypticpsyche.mp3",
-      poster: "/vip/images/m0.jpg"
-    },
-    {
-      title:"Electro Freak",
-      artist:"Studios",
-      mp3:"/vip/assets/musics/adg3com_electrofreak.mp3",
-      poster: "/vip/images/m0.jpg"
-    },
-    {
-      title:"Freeform",
-      artist:"ADG",
-      mp3:"/vip/assets/musics/adg3com_freeform.mp3",
-      poster: "/vip/images/m0.jpg"
-    }
-  ], {
+  },{
     playlistOptions: {
       enableRemoveControls: true,
       autoPlay: false

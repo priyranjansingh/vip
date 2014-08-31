@@ -8,16 +8,16 @@
                 </div>
                 <div class="jp-interface">
                     <div class="jp-controls">
-                        <div><a class="jp-previous"><i class="icon-control-rewind i-lg"></i></a>
-                        </div>
+                        <!--div><a class="jp-previous"><i class="icon-control-rewind i-lg"></i></a>
+                        </div-->
                         <div> <a class="jp-play"><i class="icon-control-play i-2x"></i></a>  <a class="jp-pause hid"><i class="icon-control-pause i-2x"></i></a> 
                         </div>
-                        <div><a class="jp-next"><i class="icon-control-forward i-lg"></i></a>
-                        </div>
+                        <!--div><a class="jp-next"><i class="icon-control-forward i-lg"></i></a>
+                        </div-->
                         <div class="hide"><a class="jp-stop"><i class="fa fa-stop"></i></a>
                         </div>
-                        <div><a class="" data-toggle="dropdown" data-target="#playlist"><i class="icon-list"></i></a>
-                        </div>
+                        <!--div><a class="" data-toggle="dropdown" data-target="#playlist"><i class="icon-list"></i></a>
+                        </div-->
                         <div class="jp-progress hidden-xs">
                             <div class="jp-seek-bar dk">
                                 <div class="jp-play-bar bg-info"></div>
@@ -37,8 +37,8 @@
                                 <div class="jp-volume-bar-value lter"></div>
                             </div>
                         </div>
-                        <div> <a class="jp-shuffle" title="shuffle"><i class="icon-shuffle text-muted"></i></a>  <a class="jp-shuffle-off hid" title="shuffle off"><i class="icon-shuffle text-lt"></i></a> 
-                        </div>
+                        <!--div> <a class="jp-shuffle" title="shuffle"><i class="icon-shuffle text-muted"></i></a>  <a class="jp-shuffle-off hid" title="shuffle off"><i class="icon-shuffle text-lt"></i></a> 
+                        </div-->
                         <div> <a class="jp-repeat" title="repeat"><i class="icon-loop text-muted"></i></a>  <a class="jp-repeat-off hid" title="repeat off"><i class="icon-loop text-lt"></i></a> 
                         </div>
                         <div class="hide"> <a class="jp-full-screen" title="full screen"><i class="fa fa-expand"></i></a>  <a class="jp-restore-screen" title="restore screen"><i class="fa fa-compress text-lt"></i></a> 
