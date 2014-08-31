@@ -72,7 +72,7 @@ $(document).ready(function(){
                 $("#jplayer_N").jPlayer("clearMedia");
                 var id = $(this).attr("id");
                     $("#jplayer_N").jPlayer("setMedia", {
-                      mp3:"/vip/assets/musics/"+id,
+                      mp3:"/vip/assets/sample/songs/"+id,
                       title:id,
                       artist:"Arijit Singh",
                     }).jPlayer("play");
