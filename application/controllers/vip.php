@@ -200,10 +200,6 @@ class Vip extends CI_Controller {
         $this->load->view('videos', $data);
     }
 
-    public function crate() {
-        $this->load->view('crate');
-    }
-
     public function search() {
         $this->load->view('header');
         $this->load->view('carat');
@@ -449,7 +445,7 @@ class Vip extends CI_Controller {
         $data['nav'] = 'carat';
         $data['urlPath'] = '';
         $data['cartMusic'] = isset($_SESSION['cart']['all']) ? $_SESSION['cart']['all'] : array();
-        
+        $this->load->view('crate');
         //$this->wondertemplate->setTitle('Carat');
         //$this->wondertemplate->renderTemplate('cart', $data);
     }

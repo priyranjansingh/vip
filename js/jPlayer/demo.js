@@ -1,3 +1,4 @@
+var footer_html = "";
 $(document).ready(function(){
 
   var myPlaylist = new jPlayerPlaylist({
@@ -26,6 +27,7 @@ $(document).ready(function(){
   });
 $(document).ready(function(){
      $("body").on("click", ".play", function() {
+                $("#footer").show();
                 $("#jplayer_N").jPlayer("clearMedia");
                 var id = $(this).attr("id");
                     $("#jplayer_N").jPlayer("setMedia", {
@@ -39,6 +41,8 @@ $(document).ready(function(){
                         type: "POST",
                         url: base_url+"vip/videodescription/",
                         success: function(data) {
+                            $("#jplayer_N").jPlayer('stop');
+                            $("#footer").hide();
                             $("#bjax-target").html(data);
                             NProgress.done(true);
                         }
@@ -70,7 +74,7 @@ $(document).ready(function(){
 
   // video
 
-  $("#jplayer_1").jPlayer({
+  $("#jp_container_1").jPlayer({
     ready: function () {
       $(this).jPlayer("setMedia", {
         title: "Big Buck Bunny",
