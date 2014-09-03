@@ -170,11 +170,7 @@ class Vip extends CI_Controller {
     } 
     public function test()
     {
-         $data = array();
-        $query = $this->db->get('song_lists',2,0);
-        $data['songs_result'] = $query->result_array();
-        print("<pre>");
-        print_r($data['songs_result']);
+      $this->load->view('video-detail');
     }        
             
 
@@ -308,6 +304,11 @@ class Vip extends CI_Controller {
             $this->load->view('helper/song-genres', $data);
         }
     }
+    public function videodescription()
+    {
+        $this->load->view('ajax-videodetail'); 
+    }        
+       
 
 }
 

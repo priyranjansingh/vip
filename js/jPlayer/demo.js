@@ -34,6 +34,16 @@ $(document).ready(function(){
                       artist:"Arijit Singh",
                     }).jPlayer("play");
             });
+            $("body").on("click", ".video_description", function() {
+                 $.ajax({
+                        type: "POST",
+                        url: base_url+"vip/videodescription/",
+                        success: function(data) {
+                            $("#bjax-target").html(data);
+                            NProgress.done(true);
+                        }
+                    });  
+            });
 });
    
 

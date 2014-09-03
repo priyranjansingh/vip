@@ -23,6 +23,7 @@ class Welcome extends CI_Controller {
 		$this->load->view('home');
 		$this->load->view('footer');
 	}
+    
 
 	public function song()
 	{
@@ -51,6 +52,10 @@ class Welcome extends CI_Controller {
 		$this->load->view('carat');
 		$this->load->view('footer');
 	}
+        public function test()
+    {
+      $this->load->view('videodetail');
+    } 
 
 }
 

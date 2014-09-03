@@ -1,5 +1,4 @@
-<section id="content">
-                    <section class="vbox">
+
                         <section class="scrollable wrapper-lg">
                             <div class="row">
                                 <div class="col-sm-8">
@@ -122,7 +121,4 @@
                                 </div>
                             </div>
                         </section>
-                    </section>
-                    <a href="<?php echo base_url();?>welcome/videodetail" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
-</section>
-
+                 
