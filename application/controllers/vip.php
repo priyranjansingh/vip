@@ -5,6 +5,19 @@ if (!defined('BASEPATH'))
 
 class Vip extends CI_Controller {
 
+    private $songs_in_cart = 0;
+    private $videos_in_cart = 0;
+    
+    public function __construct() {
+        parent::__construct();
+        $this->load->helper(array('form', 'url'));
+        $this->load->model('Song_model');
+        $this->load->model('Vip_model');
+        $this->load->model('Download_model');
+        $this->load->helper('text');
+        $this->load->helper('download');
+    }
+
     public function index() {
         $data['isHome'] = true;
         $this->load->view('header', $data);
@@ -309,6 +322,236 @@ class Vip extends CI_Controller {
         $this->load->view('ajax-videodetail'); 
     }        
        
+
+    public function download($slug){
+        if ($this->myauth->isLogin()) {
+            if (isset($_REQUEST['download'])) {
+                $play = $this->Song_model->getsongDetail($slug);
+
+                if ($play) {
+                    $nos = $this->Download_model->countDownloads($play);
+                    if ($this->_isDownloadLimit($nos)) {
+                        $this->Download_model->saveDownloads($play);
+                        $this->Song_model->updateTotalDownload($play->id);
+                        if (isset($_POST['save']) && $_POST['save'] == "Submit") {
+                            $this->Wonder_model->saveAnswer();
+                        }
+                        $path = explode("../", $play->filePath);
+                        if ($play->songType == "1") {
+                            if (file_exists($path[1])) {
+                                session_write_close();
+                                $data = file_get_contents($path[1]);
+                                force_download($play->fileName, $data);
+                                exit;
+                            }
+                        } else if ($play->songType == "2") {
+                            if (file_exists($path[1])) {
+                                session_write_close();
+                                $data = file_get_contents($path[1]);
+                                force_download($play->fileName, $data);
+                                exit;
+                            }
+                        } else if ($play->songType == "3") {
+                            if (file_exists($path[1])) {
+                                session_write_close();
+                                $data = file_get_contents($path[1]);
+                                force_download($play->fileName, $data);
+                                exit;
+                            } else if (file_exists($path[1])) {
+                                session_write_close();
+                                $data = file_get_contents($path[1]);
+                                force_download($play->fileName, $data);
+                                exit;
+                            }
+                        }
+                        exit();
+                    }
+                } else {
+                    show_404();
+                }
+            } else {
+                show_404();
+            }
+        } else {
+            show_404();
+        }
+    }
+
+    public function addToCart() {
+        $music = $this->input->post('music');
+        $songs = $this->input->post('songs');
+        $videos = $this->input->post('video');
+
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+            $_SESSION['cart']['temp'] = array();
+            $_SESSION['cart']['all'] = array();
+            $_SESSION['cart']['video'] = 0;
+            $_SESSION['cart']['song'] = 0;
+        }
+        $_SESSION['cart']['video'] = $_SESSION['cart']['video'] + $videos;
+        $_SESSION['cart']['song'] = $_SESSION['cart']['song'] + $songs;
+
+        if ($_SESSION['cart']['video'] > 10 || $_SESSION['cart']['song'] > 40) {
+            echo json_encode(array('status' => false,'cart_status' => 'full', 'msg' => 'Crate is Full. Please Download Selected Crate Files. Then add new Files..!'));
+            exit();
+        } 
+        if (in_array($music, $_SESSION['cart']['temp'])) {
+            echo json_encode(array('status' => false, 'cart_status' => 'continue', 'msg' => 'Already in cart.'));
+        } else {
+            $detail = $this->Song_model->getsongDetail($music);
+            array_push($_SESSION['cart']['temp'], $music);
+            array_push($_SESSION['cart']['all'], $detail);
+            echo json_encode(array('status' => true, 'cart_status' => 'continue', 'total' => count($_SESSION['cart']['temp']), 'video_in_cart' => $this->videos_in_cart, 'songs_in_cart' => $this->songs_in_cart));
+        }
+    }
+
+    public function removeToCart() {
+        $music = $this->input->post('music');
+        $songs = $this->input->post('songs');
+        $videos = $this->input->post('video');
+        $this->songs_in_cart = $this->songs_in_cart - $songs;
+        $this->videos_in_cart = $this->videos_in_cart - $videos;
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+            $_SESSION['cart']['temp'] = array();
+            $_SESSION['cart']['all'] = array();
+            $_SESSION['cart']['video'] = 0;
+            $_SESSION['cart']['song'] = 0;
+        } else {
+            $_SESSION['cart']['video'] = $this->videos_in_cart;
+            $_SESSION['cart']['song'] = $this->songs_in_cart;
+        }
+
+        if (!in_array($music, $_SESSION['cart']['temp'])) {
+            echo json_encode(array('status' => false));
+        } else {
+            foreach ($_SESSION['cart']['temp'] as $key => $value) {
+                if ($value == $music) {
+                    unset($_SESSION['cart']['temp'][$key]);
+                }
+            }
+            foreach ($_SESSION['cart']['all'] as $key => $value) {
+                if ($value->slug == $music) {
+                    unset($_SESSION['cart']['all'][$key]);
+                }
+            }
+            echo json_encode(array('status' => true, 'total' => count($_SESSION['cart']['temp'])));
+        }
+    }
+
+    public function crate() {
+        $this->myauth->onlyLogin();
+        if ($this->myauth->getUserId() != 6) {
+            Am_Lite::getInstance()->checkPaid();
+        }
+        $data = array();
+        $data['nav'] = 'carat';
+        $data['urlPath'] = '';
+        $data['cartMusic'] = isset($_SESSION['cart']['all']) ? $_SESSION['cart']['all'] : array();
+        
+        //$this->wondertemplate->setTitle('Carat');
+        //$this->wondertemplate->renderTemplate('cart', $data);
+    }
+
+    public function downloadZip() {
+
+        $this->load->helper('string');
+        $files = $_SESSION['cart']['all'];
+
+        $this->_saveDownload($files);
+
+        function createZip($files, $zip_file) {
+            $zip = new ZipArchive;
+            if ($zip->open($zip_file, ZipArchive::OVERWRITE) === TRUE) {
+                foreach ($files as $file) {
+                    $path = explode("../", $file->filePath);
+                    if ($file->songType == "1") {
+                        if (!file_exists($path[1])) {
+                            die($path[1] . ' does not exist');
+                        }
+                        if (!is_readable($path[1])) {
+                            die($path[1] . ' not readable');
+                        }
+                        $zip->addFile($path[1], $file->fileName);
+                    } else if ($file->songType == "2") {
+                        if (!file_exists($path[1])) {
+                            die($path[1] . ' does not exist');
+                        }
+                        if (!is_readable($path[1])) {
+                            die($path[1] . ' not readable');
+                        }
+                        $zip->addFile($path[1], $file->fileName);
+                    }
+                }
+                $zip->close();
+
+                $_SESSION['cart'] = array();
+                $_SESSION['cart']['temp'] = array();
+                $_SESSION['cart']['all'] = array();
+                return true;
+            } else
+                return false;
+        }
+
+        $temp = time() . '.zip';
+        $zip_name = $temp;
+
+        if (createZip($files, $zip_name)) {
+            session_write_close();
+            if (file_exists('/var/www/vhosts/videotoolz20.com/httpdocs/xyz123/' . $zip_name)) {
+                header('Location: http://www.videotoolz20.com/xyz123/' . $zip_name);
+            } else {
+                $dir = '/var/www/vhosts/videotoolz20.com/httpdocs/xyz123/';
+                $name = explode(".", $zip_name);
+                $name_of_zip = $name[0];
+                $root = scandir($dir);
+                foreach ($root as $value) {
+                    if ($value === '.' || $value === '..') {
+                        continue;
+                    }
+                    if (is_file($dir.$value)) {
+                        $extension = explode(".", $dir.$value);
+                        $ext = end($extension);
+                        if ($ext == 'zip' || $ext == 'php' || $ext == 'htaccess') {
+                            continue;
+                        } else {
+                            $created_zip_name = $extension[0];
+                            if ($created_zip_name == $name_of_zip) {
+                                rename($dir.$value, $dir.$zip_name);
+                                header('Location: http://www.videotoolz20.com/xyz123/' . $zip_name);
+                            }
+                        }
+                    }
+                }
+            }
+            exit();
+        } else {
+            exit();
+        }
+    }
+
+    private function _isDownloadLimit($nos) {
+        if ($nos <= 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function _saveDownload($files) {
+        foreach ($files as $file) {
+            $this->Song_model->updateTotalDownload($file->id);
+            $this->Download_model->saveDownloads($file);
+        }
+    }
+
+    public function updatePlay() {
+        $slug = $this->input->post('id');
+        $play = $this->Song_model->getPlayId($slug, 1);
+        if ($play)
+            $this->Song_model->updateTotalPlay($play->id);
+    }
 
 }
 
