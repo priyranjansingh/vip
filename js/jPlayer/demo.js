@@ -1,3 +1,4 @@
+var footer_html = "";
 $(document).ready(function(){
 
   var myPlaylist = new jPlayerPlaylist({
@@ -26,6 +27,7 @@ $(document).ready(function(){
   });
 $(document).ready(function(){
      $("body").on("click", ".play", function() {
+                $("#footer").show();
                 $("#jplayer_N").jPlayer("clearMedia");
                 var id = $(this).attr("id");
                     $("#jplayer_N").jPlayer("setMedia", {
@@ -41,6 +43,8 @@ $(document).ready(function(){
                         url: base_url+"vip/videodescription/",
                         data:{"filename":filename},
                         success: function(data) {
+                            $("#jplayer_N").jPlayer('stop');
+                            $("#footer").hide();
                             $("#bjax-target").html(data);
                             NProgress.done(true);
                         }
@@ -74,5 +78,33 @@ $(document).ready(function(){
       myPlaylist.play(i);
     }
     
-  }); 
+
+  });
+
+
+
+  // video
+
+  $("#jp_container_1").jPlayer({
+    ready: function () {
+      $(this).jPlayer("setMedia", {
+        title: "Big Buck Bunny",
+        m4v: "/vip/assets/video/big_buck_bunny_trailer.m4v",
+        ogv: "/vip/ssets/video/big_buck_bunny_trailer.ogv",
+        webmv: "/vip/assets/video/big_buck_bunny_trailer.webm",
+        poster: "/vip/images/m41.jpg"
+      });
+    },
+    swfPath: "js",
+    supplied: "webmv, ogv, m4v",
+    size: {
+      width: "100%",
+      height: "auto",
+      cssClass: "jp-video-360p"
+    },
+    globalVolume: true,
+    smoothPlayBar: true,
+    keyEnabled: true
+  });
+
 });
