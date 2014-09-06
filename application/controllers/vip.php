@@ -315,7 +315,9 @@ class Vip extends CI_Controller {
     }
     public function videodescription()
     {
-        $data['filename'] = $_REQUEST['filename'];
+        $slug = $_POST['file'];
+        $query = $this->db->get_where('song_lists',array("slug"=>$slug));
+        $data['result'] = $query->result_array();
         $this->load->view('ajax-videodetail',$data); 
     }        
        

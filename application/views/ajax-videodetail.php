@@ -138,16 +138,13 @@
                       <div class="wrapper-lg">
                         
                         <h2 class="m-t-none text-black">
-                          Big Buck Bunny Trailer
+                          <?php echo $result[0]['songName'];  ?>
                         </h2>
                         
                         <div class="post-sum">
                           
                           <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. 
-                            <br>
-                            <br>
-                            Phasellus at ultricies neque, quis malesuada augue. Donec eleifend condimentum nisl eu consectetur. Integer eleifend, nisl venenatis consequat iaculis, lectus arcu malesuada sem, dapibus porta quam lacus eu neque.
+                            <?php echo $result[0]['songDescription'];  ?>
                           </p>
                           
                         </div>
@@ -356,15 +353,14 @@
                 </div>
                 
               </section>
-              
 <script>
     $(document).ready(function(){
     $("#jplayer_1").jPlayer({
     ready: function () {
       $(this).jPlayer("setMedia", {
-        title: "Big Buck Bunny",
-        m4v: "<?php echo base_url();  ?>assets/videos/<?php echo $filename;  ?>",
-        poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"
+        title: "<?php echo $result[0]['songName'];  ?>",
+        m4v: "<?php echo base_url();  ?>assets/sample/videos/<?php echo $result[0]['fileName'];  ?>",
+        poster: "<?php echo base_url();  ?>assets/thumbnail/videos/<?php echo $result[0]['thumbnail'];  ?>"
       }).jPlayer("play");
     },
      swfPath: "js/jPlayer",
@@ -384,4 +380,4 @@
     
   });
     });
-</script>    
+</script>           

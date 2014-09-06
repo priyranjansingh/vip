@@ -37,11 +37,11 @@ $(document).ready(function(){
                     }).jPlayer("play");
             });
             $("body").on("click", ".video_description", function() {
-                var filename  = $(this).attr("id");
+                var file  = $(this).attr("id");
                  $.ajax({
                         type: "POST",
                         url: base_url+"vip/videodescription/",
-                        data:{"filename":filename},
+                        data:{"file":file},
                         success: function(data) {
                             $("#jplayer_N").jPlayer('stop');
                             $("#footer").hide();
@@ -50,14 +50,7 @@ $(document).ready(function(){
                         }
                     });  
             });
-            $("body").on("click", ".video_play", function() {
-                 $("#jplayer_1").jPlayer("clearMedia");
-                    $("#jplayer_1").jPlayer("setMedia", {
-                      title: "Big Buck Bunny",
-        m4v: "http://flatfull.com/themes/assets/video/big_buck_bunny_trailer.m4v",
-        poster: "images/m41.jpg"
-                    }).jPlayer("play");
-            });
+           
 });
    
 
