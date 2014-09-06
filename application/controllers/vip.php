@@ -306,7 +306,8 @@ class Vip extends CI_Controller {
     }
     public function videodescription()
     {
-        $this->load->view('ajax-videodetail'); 
+        $data['filename'] = $_REQUEST['filename'];
+        $this->load->view('ajax-videodetail',$data); 
     }        
        
 

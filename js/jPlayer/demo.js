@@ -35,14 +35,24 @@ $(document).ready(function(){
                     }).jPlayer("play");
             });
             $("body").on("click", ".video_description", function() {
+                var filename  = $(this).attr("id");
                  $.ajax({
                         type: "POST",
                         url: base_url+"vip/videodescription/",
+                        data:{"filename":filename},
                         success: function(data) {
                             $("#bjax-target").html(data);
                             NProgress.done(true);
                         }
                     });  
+            });
+            $("body").on("click", ".video_play", function() {
+                 $("#jplayer_1").jPlayer("clearMedia");
+                    $("#jplayer_1").jPlayer("setMedia", {
+                      title: "Big Buck Bunny",
+        m4v: "http://flatfull.com/themes/assets/video/big_buck_bunny_trailer.m4v",
+        poster: "images/m41.jpg"
+                    }).jPlayer("play");
             });
 });
    
@@ -64,32 +74,5 @@ $(document).ready(function(){
       myPlaylist.play(i);
     }
     
-  });
-
-
-
-  // video
-
-  $("#jplayer_1").jPlayer({
-    ready: function () {
-      $(this).jPlayer("setMedia", {
-        title: "Big Buck Bunny",
-        m4v: "/vip/assets/video/big_buck_bunny_trailer.m4v",
-        ogv: "/vip/ssets/video/big_buck_bunny_trailer.ogv",
-        webmv: "/vip/assets/video/big_buck_bunny_trailer.webm",
-        poster: "/vip/images/m41.jpg"
-      });
-    },
-    swfPath: "js",
-    supplied: "webmv, ogv, m4v",
-    size: {
-      width: "100%",
-      height: "auto",
-      cssClass: "jp-video-360p"
-    },
-    globalVolume: true,
-    smoothPlayBar: true,
-    keyEnabled: true
-  });
-
+  }); 
 });

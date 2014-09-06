@@ -8,14 +8,14 @@
                     
                     <div class="panel">
                       
-                      <!-- video player -->
+                 <!-- video player -->
                       
                       <div id="jp_container_1" class="jp-video-360p">
                         
                         <div class="jp-type-single pos-rlt">
                           
                           <div id="jplayer_1" class="jp-jplayer jp-video" style="width: 100%; height: auto;">
-                            <img id="jp_poster_0" style="width: 100%; height: auto; display: none;" src="<?php echo base_url();?>images/m41.jpg">
+                            <img id="jp_poster_0" style="width: 100%; height: auto; display: none;" src="./Musik   Web Application_files/m41.jpg">
                             <video id="jp_video_0" preload="metadata" src="http://flatfull.com/themes/assets/video/big_buck_bunny_trailer.webm" title="Big Buck Bunny" style="width: 100%; height: auto;">
                             </video>
                           </div>
@@ -36,7 +36,7 @@
                                 <div>
                                   
                                   <a class="jp-play" style="display: inline-block;">
-                                    <i class="icon-control-play i-2x">
+                                    <i class="video_play icon-control-play i-2x">
                                     </i>
                                   </a>
                                   
@@ -536,4 +536,31 @@
                 
               </section>
               
-            
+<script>
+    $(document).ready(function(){
+    $("#jplayer_1").jPlayer({
+    ready: function () {
+      $(this).jPlayer("setMedia", {
+        title: "Big Buck Bunny",
+        m4v: "<?php echo base_url();  ?>assets/videos/<?php echo $filename;  ?>",
+        poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"
+      }).jPlayer("play");
+    },
+     swfPath: "js/jPlayer",
+    supplied: "m4v",
+     playlistOptions: {
+      enableRemoveControls: true,
+      autoPlay: true
+    },
+    size: {
+      width: "100%",
+      height: "auto",
+      cssClass: "jp-video-360p"
+    },
+    globalVolume: true,
+    smoothPlayBar: true,
+    keyEnabled: true
+    
+  });
+    });
+</script>    
