@@ -12,7 +12,7 @@
                     </div>
                     <div class="center text-center m-t-n"> 
                         <a href="javascript:void(null);#">
-                            <i id="<?php echo $val['fileName'] ?>" class="fa fa-play-circle play i-2x">
+                            <i id="<?php echo $val['slug'] ?>" class="fa fa-play-circle play i-2x">
                             </i>
                         </a> 
                     </div>

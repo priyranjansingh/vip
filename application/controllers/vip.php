@@ -314,11 +314,23 @@ class Vip extends CI_Controller {
         }
     }
     public function videodescription()
-    {
+    {  
         $slug = $_POST['file'];
+        $update_query = "update `song_lists` set `total_play`=`total_play`+1 where `slug`='$slug'";
+        $this->db->query($update_query);
         $query = $this->db->get_where('song_lists',array("slug"=>$slug));
         $data['result'] = $query->result_array();
         $this->load->view('ajax-videodetail',$data); 
+    }   
+    
+    public function songdescription()
+    {
+        $slug = $_POST['slug'];
+        $update_query = "update `song_lists` set `total_play`=`total_play`+1 where `slug`='$slug'";
+        $this->db->query($update_query);
+        $query = $this->db->get_where('song_lists',array("slug"=>$slug));
+        $data['result'] = $query->row_array();
+        echo json_encode($data['result']);
     }        
        
 
@@ -373,7 +385,7 @@ class Vip extends CI_Controller {
             }
         } else {
             show_404();
-        }
+        } 
     }
 
     public function addToCart() {
