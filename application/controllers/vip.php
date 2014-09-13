@@ -26,10 +26,10 @@ class Vip extends CI_Controller {
 
     public function home() {
         $data = array();
-        $data['newSongs'] = array('newSongs');
-        $data['newVideos'] = array('newVideos');
-        $data['topSongs'] = array('topSongs');
-        $data['topVideos'] = array('topVideos');
+        $data['newSongs']  = $this->Song_model->getNewSongs();
+        $data['newVideos'] = $this->Song_model->getNewVideos();
+        $data['topSongs']  = $this->Song_model->getTopSongs();
+        $data['topVideos'] = $this->Song_model->getTopVideos();
         echo $this->load->view('home', $data, true);
     }
 

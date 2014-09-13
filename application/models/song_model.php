@@ -527,6 +527,31 @@ class Song_model extends CI_Model {
 //        print_r($this->db->last_query());
         return $result1;
     }
+    
+    public function getNewSongs()
+    {
+        $this->db->order_by("createdAt", "desc"); 
+        $query = $this->db->get_where("song_lists",array('songType'=>'1'),12,0);
+        return $result = $query->result_array();
+    }       
+    public function getNewVideos()
+    {
+        $this->db->order_by("createdAt", "desc"); 
+        $query = $this->db->get_where("song_lists",array('songType'=>'2'),12,0);
+        return $result = $query->result_array();
+    } 
+    public function getTopSongs()
+    {
+        $this->db->order_by("total_download", "desc"); 
+        $query = $this->db->get_where("song_lists",array('songType'=>'1'),12,0);
+        return $result = $query->result_array();
+    }        
+    public function getTopVideos()
+    {
+        $this->db->order_by("total_download", "desc"); 
+        $query = $this->db->get_where("song_lists",array('songType'=>'2'),12,0);
+        return $result = $query->result_array();
+    }        
 
 }
 

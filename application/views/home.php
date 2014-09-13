@@ -4,8 +4,8 @@
     <div class="col-md-7">
         <h3 class="font-thin">New Songs</h3> 
         <div class="row row-sm">
-            <?php if ($newSongs) : ?>
-                <?php for ($i = 0; $i < 12; $i++) : ?>
+            <?php if (!empty($newSongs)) { ?>
+                <?php for ($i = 0; $i < count($newSongs); $i++) : ?>
                     <div class="col-xs-6 col-sm-3">
                         <div class="item">
                             <div class="pos-rlt">
@@ -15,14 +15,18 @@
                                     </div>
                                     <div class="center-top text-center m-t-n">
                                         <a href="#">
-                                            Song Name
+                                            <?php echo $newSongs[$i]['songName']; ?>
                                         </a> 
                                     </div>
-                                    <div class="center text-center m-t-n"> <a href="#"><i  id="Sawan Aaya Hai.mp3" class="icon-control-play play i-2x"></i></a> 
+                                    <div class="center text-center m-t-n"> 
+                                        <a href="javascript:void(null);#">
+                                            <i id="<?php echo $newSongs[$i]['slug'] ?>" class="fa fa-play-circle play i-2x">
+                                            </i>
+                                        </a> 
                                     </div>
                                     <div class="center-bottom text-center m-t-n">
                                         <a href="#">
-                                            Artist Name
+                                            <?php echo $newSongs[$i]['artistName']; ?>
                                         </a> 
                                     </div>
                                     <div class="bottom padder m-b-sm">
@@ -43,14 +47,14 @@
                         </div>
                     </div>
                 <?php endfor; ?>
-            <?php endif; ?>
+            <?php } ?>
         </div>
     </div>
     <div class="col-md-5">
         <h3 class="font-thin">Top Songs</h3> 
         <div class="list-group bg-white list-group-lg no-bg auto">
             <?php if ($topSongs) : ?>
-                <?php for ($i = 0; $i < 12; $i++) : ?>
+                <?php for ($i = 0; $i < count($topSongs); $i++) : ?>
                     <div href="#" class="list-group-item clearfix"> 
                         <span class="pull-right h2 text-muted m-l">
                             <?php echo ($i + 1); ?>
@@ -68,8 +72,8 @@
                         <span class="pull-left thumb-sm avatar m-r">
                             <img src="images/a4.png" alt="..." /> 
                         </span> 
-                        <span class="clear"> <span>Little Town</span> 
-                            <small class="text-muted clear text-ellipsis">by Chris Fox</small> 
+                        <span class="clear"> <span> <?php echo $topSongs[$i]['songName']; ?></span> 
+                            <small class="text-muted clear text-ellipsis">by <?php echo $topSongs[$i]['artistName']; ?></small> 
                         </span>
                     </div>
                 <?php endfor; ?>
@@ -82,7 +86,7 @@
         <h3 class="font-thin">New Videos</h3> 
         <div class="row row-sm">
             <?php if ($newVideos) : ?>
-                <?php for ($i = 0; $i < 12; $i++) : ?>
+                <?php for ($i = 0; $i < count($newVideos); $i++) : ?>
                     <div class="col-xs-6 col-sm-3">
                         <div class="item">
                             <div class="pos-rlt">
@@ -92,14 +96,18 @@
                                     </div>
                                     <div class="center-top text-center m-t-n">
                                         <a href="#">
-                                            Song Name
+                                            <?php echo $newVideos[$i]['songName']; ?>
                                         </a> 
                                     </div>
-                                    <div class="center text-center m-t-n"> <a href="#"><i class="icon-control-play i-2x"></i></a> 
+                                    <div class="center text-center m-t-n"> 
+                                        <a href="javascript:void(null);#">
+                                            <i id="<?php echo $newVideos[$i]['slug']; ?>" class="fa fa-play-circle i-2x video_description">
+                                            </i>
+                                        </a> 
                                     </div>
                                     <div class="center-bottom text-center m-t-n">
                                         <a href="#">
-                                            Artist Name
+                                            <?php echo $newVideos[$i]['artistName']; ?>
                                         </a> 
                                     </div>
                                     <div class="bottom padder m-b-sm">
@@ -127,7 +135,7 @@
         <h3 class="font-thin">Top Videos</h3> 
         <div class="list-group bg-white list-group-lg no-bg auto">
             <?php if ($topVideos) : ?>
-                <?php for ($i = 0; $i < 12; $i++) : ?>
+                <?php for ($i = 0; $i < count($topVideos); $i++) : ?>
                     <div href="#" class="list-group-item clearfix"> 
                         <span class="pull-right h2 text-muted m-l">
                             <?php echo ($i + 1); ?>
@@ -145,8 +153,8 @@
                         <span class="pull-left thumb-sm avatar m-r">
                             <img src="images/a4.png" alt="..." /> 
                         </span> 
-                        <span class="clear"> <span>Little Town</span> 
-                            <small class="text-muted clear text-ellipsis">by Chris Fox</small> 
+                        <span class="clear"> <span><?php echo $topVideos[$i]['songName']; ?></span> 
+                            <small class="text-muted clear text-ellipsis">by <?php echo $topVideos[$i]['artistName']; ?></small> 
                         </span>
                     </div>
                 <?php endfor; ?>
