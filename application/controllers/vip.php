@@ -387,7 +387,20 @@ class Vip extends CI_Controller {
             show_404();
         } 
     }
-
+    
+      public function downloads($slug){
+                //$slug = $this->input->post('slug');
+                $play = $this->Song_model->getsongDetail($slug);
+                if ($play) {
+                        $path = explode("../", $play->filePath);
+                            if (file_exists($path[1])) {
+                                $data = file_get_contents($path[1]);
+                                force_download($play->fileName, $data);
+                                exit;
+                            }
+                } 
+    }
+    
     public function addToCart() {
         $music = $this->input->post('music');
         $songs = $this->input->post('songs');

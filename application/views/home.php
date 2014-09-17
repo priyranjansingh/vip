@@ -34,7 +34,7 @@
                                             <i class="icon icon-drawer"></i> 
                                         </a>
                                         <a href="#" title="Download"> 
-                                            <i class="fa fa-download"></i> 
+                                            <i id="<?php echo $newSongs[$i]['slug'] ?>" class="fa fa-download download"></i> 
                                         </a>
                                     </div>
                                 </div>

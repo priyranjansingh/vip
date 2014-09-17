@@ -280,6 +280,26 @@ $(document).ready(function(){
                         }
                     });
    });
+   
+   // for download
+   
+    $("body").on("click", ".download", function() {
+        var slug = $(this).attr("id");
+        window.location.href = base_url+"vip/downloads/"+slug;
+         
+//         $.ajax({
+//            url: base_url+"vip/downloads/",
+//            type: "POST",
+//            data: {slug:slug},
+//            success:function(data){
+//            }
+//         });
+    });
+   
+   
+   // end of the download
+   
+   
                 
    
 });
