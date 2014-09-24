@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="bottom padder m-b-sm">
                                         <a href="#" title="Add To Crate" class="pull-right"> 
-                                            <i class="icon icon-drawer"></i> 
+                                            <i id="<?php echo $newSongs[$i]['slug'] ?>" class="fa fa-plus-circle add_to_crate"></i> 
                                         </a>
                                         <a href="#" title="Download"> 
                                             <i id="<?php echo $newSongs[$i]['slug'] ?>" class="fa fa-download download"></i> 
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="bottom padder m-b-sm">
                                         <a href="#" title="Add To Crate" class="pull-right"> 
-                                            <i class="icon icon-drawer"></i> 
+                                             <i id="<?php echo $newVideos[$i]['slug'] ?>" class="fa fa-plus-circle add_to_crate"></i> 
                                         </a>
                                         <a href="#" title="Download"> 
                                             <i class="fa fa-download"></i> 

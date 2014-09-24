@@ -464,19 +464,19 @@ class Vip extends CI_Controller {
         }
     }
 
-    public function crate() {
-        $this->myauth->onlyLogin();
-        if ($this->myauth->getUserId() != 6) {
-            Am_Lite::getInstance()->checkPaid();
-        }
-        $data = array();
-        $data['nav'] = 'carat';
-        $data['urlPath'] = '';
-        $data['cartMusic'] = isset($_SESSION['cart']['all']) ? $_SESSION['cart']['all'] : array();
-        $this->load->view('crate');
-        //$this->wondertemplate->setTitle('Carat');
-        //$this->wondertemplate->renderTemplate('cart', $data);
-    }
+//    public function crate() {
+//        $this->myauth->onlyLogin();
+//        if ($this->myauth->getUserId() != 6) {
+//            Am_Lite::getInstance()->checkPaid();
+//        }
+//        $data = array();
+//        $data['nav'] = 'carat';
+//        $data['urlPath'] = '';
+//        $data['cartMusic'] = isset($_SESSION['cart']['all']) ? $_SESSION['cart']['all'] : array();
+//        $this->load->view('crate');
+//        //$this->wondertemplate->setTitle('Carat');
+//        //$this->wondertemplate->renderTemplate('cart', $data);
+//    }
 
     public function downloadZip() {
 
@@ -576,6 +576,36 @@ class Vip extends CI_Controller {
         if ($play)
             $this->Song_model->updateTotalPlay($play->id);
     }
+    
+    // for the crate functonality
+    public function crate()
+    {
+        session_start();
+        $crate_array = array();
+        if(!empty($_SESSION['crate']))
+        {
+            $crate_array = $_SESSION['crate'];
+        }    
+        $slug = $this->input->post('id');
+        $flag = $this->input->post('flag');
+        if($flag=='add')
+        {
+             array_push($crate_array,$slug);
+        }  
+        else if($flag=='remove')
+        {
+             $key = array_search($slug, $crate_array);
+             unset($crate_array[$key]);
+        }    
+       
+        $_SESSION['crate'] = $crate_array;
+         //session_destroy();
+        //pre($_SESSION['crate'],true);
+        echo count($_SESSION['crate']);
+       
+    }        
+    
+    // end of for the crate functionality
 
 }
 
