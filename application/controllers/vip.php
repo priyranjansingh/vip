@@ -580,11 +580,10 @@ class Vip extends CI_Controller {
     // for the crate functonality
     public function crate()
     {
-        session_start();
         $crate_array = array();
-        if(!empty($_SESSION['crate']))
+        if(!empty($this->session->userdata('crate')))
         {
-            $crate_array = $_SESSION['crate'];
+            $crate_array = $this->session->userdata('crate');
         }    
         $slug = $this->input->post('id');
         $flag = $this->input->post('flag');
@@ -597,11 +596,8 @@ class Vip extends CI_Controller {
              $key = array_search($slug, $crate_array);
              unset($crate_array[$key]);
         }    
-       
-        $_SESSION['crate'] = $crate_array;
-         //session_destroy();
-        //pre($_SESSION['crate'],true);
-        echo count($_SESSION['crate']);
+        $this->session->set_userdata('crate',$crate_array);
+        echo count($this->session->userdata('crate'));
        
     }        
     

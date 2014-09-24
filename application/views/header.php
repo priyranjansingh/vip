@@ -1,4 +1,3 @@
-<?php session_start();   ?>
 <!DOCTYPE html>
 <html lang="en" class="app">
     <head>
@@ -231,7 +230,7 @@
                                             <li>
                                                 <a href="javascript:void(null)" my-ajax data-url="crate"> 
                                                     <i class="icon-drawer icon text-primary-lter"></i> 
-                                                    <b id="crate_count" class="badge bg-primary pull-right"><?php echo (!empty($_SESSION['crate']))? count($_SESSION['crate']):'0'; ?></b>
+                                                    <b id="crate_count" class="badge bg-primary pull-right"><?php echo (!empty($this->session->userdata('crate')))? count($this->session->userdata('crate')):'0'; ?></b>
                                                     <span class="font-bold">crate</span> 
                                                 </a>
                                             </li>
