@@ -18,6 +18,17 @@
     margin-top: 10px;
     margin-right: 40px;
 }
+.list-play {
+    margin-top: 10px;
+}
 .scrollable-ajax {
     padding-bottom: 50px;
+}
+
+.crate_download{
+    width: 100px;
+    padding: 5px;
+    border: none;
+    background: #428bca;
+    color: #fff;
 }

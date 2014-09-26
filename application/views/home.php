@@ -56,9 +56,6 @@
             <?php if ($topSongs) : ?>
                 <?php for ($i = 0; $i < count($topSongs); $i++) : ?>
                     <div href="#" class="list-group-item clearfix"> 
-                        <span class="pull-right h2 text-muted m-l">
-                            <?php echo ($i + 1); ?>
-                        </span>
                         <span class="pull-right m-l list-crate">
                             <a href="#" title="Add To Crate" class="pull-right"> 
                                 <i class="icon icon-drawer"></i> 
@@ -68,6 +65,14 @@
                             <a href="#" title="Download"> 
                                 <i class="fa fa-download"></i> 
                             </a>
+                        </span>
+                        <span class="pull-right m-l list-play">
+                            <a href="javascript:void(null);#" class="pull-right">
+                                <i id="<?php echo $topSongs[$i]['slug']; ?>" class="fa fa-play-circle play "></i>
+                            </a>
+                        </span>
+                        <span class="pull-right m-l list-crate">
+                            BPM: <?php echo $topSongs[$i]['bpm']; ?>
                         </span>
                         <span class="pull-left thumb-sm avatar m-r">
                             <img src="images/a4.png" alt="..." /> 
@@ -137,9 +142,6 @@
             <?php if ($topVideos) : ?>
                 <?php for ($i = 0; $i < count($topVideos); $i++) : ?>
                     <div href="#" class="list-group-item clearfix"> 
-                        <span class="pull-right h2 text-muted m-l">
-                            <?php echo ($i + 1); ?>
-                        </span>
                         <span class="pull-right m-l list-crate">
                             <a href="#" title="Add To Crate" class="pull-right"> 
                                 <i class="icon icon-drawer"></i> 
@@ -150,9 +152,14 @@
                                 <i class="fa fa-download"></i> 
                             </a>
                         </span>
-                        <span class="pull-left thumb-sm avatar m-r">
-                            <img src="images/a4.png" alt="..." /> 
-                        </span> 
+                        <span class="pull-right m-l list-play">
+                            <a href="javascript:void(null);#" class="pull-right">
+                                <i id="<?php echo $topVideos[$i]['slug']; ?>" class="fa fa-play-circle video_description"></i>
+                            </a>
+                        </span>
+                        <span class="pull-right m-l list-crate">
+                            BPM: <?php echo $topVideos[$i]['bpm']; ?>
+                        </span>
                         <span class="clear"> <span><?php echo $topVideos[$i]['songName']; ?></span> 
                             <small class="text-muted clear text-ellipsis">by <?php echo $topVideos[$i]['artistName']; ?></small> 
                         </span>

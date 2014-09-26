@@ -307,7 +307,7 @@ $(document).ready(function() {
         var id = $(this).attr('id');
         $.ajax({
             type: "POST",
-            url: base_url + "vip/crate/",
+            url: base_url + "vip/addTocrate/",
             data: {flag: flag, id : id},
             success: function(data) {
                 $('#crate_count').html(data);

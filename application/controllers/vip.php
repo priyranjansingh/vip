@@ -16,6 +16,7 @@ class Vip extends CI_Controller {
         $this->load->model('Download_model');
         $this->load->helper('text');
         $this->load->helper('download');
+        $this->load->library('session');
     }
 
     public function index() {
@@ -54,9 +55,9 @@ class Vip extends CI_Controller {
               $offset = 24;
         }    
         $data = array();
-        $query = $this->db->get_where('song_lists',array('songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'1'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
-        $query_total = $this->db->get_where('song_lists',array('songType'=>'1'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'1'));
         $total_page = $query_total->num_rows();
         $data['total_records'] = ceil($total_page/24);
         $data['genreName'] = 'All';
@@ -72,9 +73,9 @@ class Vip extends CI_Controller {
               $offset = 24;
         }    
         $data = array();
-        $query = $this->db->get_where('song_lists',array('songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'2'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
-        $query_total = $this->db->get_where('song_lists',array('songType'=>'2'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'2'));
         $total_page = $query_total->num_rows();
         $data['total_records'] = ceil($total_page/24);
         $data['genreName'] = 'All';
@@ -92,10 +93,10 @@ class Vip extends CI_Controller {
         $genre_id =  $this->input->post('id');
         $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
         $genre_name = $genre_query->row_array();
-        $query = $this->db->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         
-        $query_total = $this->db->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'));
         $total_page = $query_total->num_rows();
         $data['total_records'] = ceil($total_page/24);
         
@@ -115,10 +116,10 @@ class Vip extends CI_Controller {
         $genre_id =  $this->input->post('id');
         $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
         $genre_name = $genre_query->row_array();
-        $query = $this->db->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         
-        $query_total = $this->db->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'));
         $total_page = $query_total->num_rows();
         $data['total_records'] = ceil($total_page/24);
         
@@ -141,10 +142,10 @@ class Vip extends CI_Controller {
         $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
         $genre_name = $genre_query->row_array();
         // end of getting the genre name
-        $query = $this->db->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         
-        $query_total = $this->db->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'));
         $total_page = $query_total->num_rows();
         $data['total_records'] = ceil($total_page/24);
         
@@ -168,10 +169,10 @@ class Vip extends CI_Controller {
         $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
         $genre_name = $genre_query->row_array();
         // end of getting the genre name
-        $query = $this->db->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         
-        $query_total = $this->db->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'));
         $total_page = $query_total->num_rows();
         $data['total_records'] = ceil($total_page/24);
         
@@ -238,7 +239,7 @@ class Vip extends CI_Controller {
               $offset = 24;
         }    
         $data = array();
-        $query = $this->db->get_where('song_lists',array('songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'2'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('video-loading', $data);
     }
@@ -253,7 +254,7 @@ class Vip extends CI_Controller {
               $offset = 24;
         }    
         $data = array();
-        $query = $this->db->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('song-loading', $data);
     }
@@ -267,7 +268,7 @@ class Vip extends CI_Controller {
               $offset = 24;
         }    
         $data = array();
-        $query = $this->db->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('video-loading', $data);
     }
@@ -282,7 +283,7 @@ class Vip extends CI_Controller {
               $offset = 24;
         }    
         $data = array();
-        $query = $this->db->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('song-loading', $data);
     }
@@ -296,7 +297,7 @@ class Vip extends CI_Controller {
               $offset = 24;
         }    
         $data = array();
-        $query = $this->db->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'),$offset,$limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('video-loading', $data);
     }
@@ -333,62 +334,8 @@ class Vip extends CI_Controller {
         echo json_encode($data['result']);
     }        
        
-
-    public function download($slug){
-        if ($this->myauth->isLogin()) {
-            if (isset($_REQUEST['download'])) {
-                $play = $this->Song_model->getsongDetail($slug);
-
-                if ($play) {
-                    $nos = $this->Download_model->countDownloads($play);
-                    if ($this->_isDownloadLimit($nos)) {
-                        $this->Download_model->saveDownloads($play);
-                        $this->Song_model->updateTotalDownload($play->id);
-                        if (isset($_POST['save']) && $_POST['save'] == "Submit") {
-                            $this->Wonder_model->saveAnswer();
-                        }
-                        $path = explode("../", $play->filePath);
-                        if ($play->songType == "1") {
-                            if (file_exists($path[1])) {
-                                session_write_close();
-                                $data = file_get_contents($path[1]);
-                                force_download($play->fileName, $data);
-                                exit;
-                            }
-                        } else if ($play->songType == "2") {
-                            if (file_exists($path[1])) {
-                                session_write_close();
-                                $data = file_get_contents($path[1]);
-                                force_download($play->fileName, $data);
-                                exit;
-                            }
-                        } else if ($play->songType == "3") {
-                            if (file_exists($path[1])) {
-                                session_write_close();
-                                $data = file_get_contents($path[1]);
-                                force_download($play->fileName, $data);
-                                exit;
-                            } else if (file_exists($path[1])) {
-                                session_write_close();
-                                $data = file_get_contents($path[1]);
-                                force_download($play->fileName, $data);
-                                exit;
-                            }
-                        }
-                        exit();
-                    }
-                } else {
-                    show_404();
-                }
-            } else {
-                show_404();
-            }
-        } else {
-            show_404();
-        } 
-    }
     
-      public function downloads($slug){
+    public function downloads($slug){
                 //$slug = $this->input->post('slug');
                 $play = $this->Song_model->getsongDetail($slug);
                 if ($play) {
@@ -578,7 +525,7 @@ class Vip extends CI_Controller {
     }
     
     // for the crate functonality
-    public function crate()
+    public function addTocrate()
     {
         $crate_array = array();
         if(!empty($this->session->userdata('crate')))
@@ -599,6 +546,10 @@ class Vip extends CI_Controller {
         $this->session->set_userdata('crate',$crate_array);
         echo count($this->session->userdata('crate'));
        
+    }
+
+    public function crate(){
+        $this->load->view('ajax-crate'); 
     }        
     
     // end of for the crate functionality
