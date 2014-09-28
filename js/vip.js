@@ -315,7 +315,34 @@ $(document).ready(function() {
         });
     });
 
+     $("body").on("click", '.remove_crate', function() {
+        var id = $(this).attr('id');
+        $("#container_"+id).remove();
+        $.ajax({
+            type: "POST",
+            url: base_url + "vip/addTocrate/",
+            data: {flag: 'remove', id : id},
+            success: function(data) {
+                $('#crate_count').html(data);
+            }
+        });
+     });
+
     // end of the crate functionality
+    
+    // for  crate description page
+    $('body').on('click','#mycrate',function(){
+      $.ajax({
+            type: "POST",
+            url: base_url + "vip/crate/",
+            success : function(data){
+              $("#bjax-target").html(data);
+            }
+      });
+    });
+    
+    
+    // end of the crate description page
 
     // login Page
 
