@@ -41,7 +41,7 @@
                         </div>
                     </fieldset>
                     <!-- hidden variables -->
-                    <input type="hidden" name="login_attempt_id" value="1411900056">
+                    <input type="hidden" name="login_attempt_id" value="<?php echo time(); ?>">
                     <!-- end of hidden -->
                 </form>
             </div>
