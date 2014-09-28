@@ -20,12 +20,22 @@ class Vip extends CI_Controller {
     }
 
     public function index() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $data['isHome'] = true;
         $this->load->view('header', $data);
         $this->load->view('footer');
     }
 
     public function home() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $data = array();
         $data['newSongs']  = $this->Song_model->getNewSongs();
         $data['newVideos'] = $this->Song_model->getNewVideos();
@@ -35,6 +45,11 @@ class Vip extends CI_Controller {
     }
 
     public function songs($id = null) {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $data = array();
         $data['list'] = array(
             array('0', 'All'),
@@ -84,6 +99,11 @@ class Vip extends CI_Controller {
     } 
     public function genre_songs()
     {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $boundary = $this->input->post('boundary'); 
         if(!empty($boundary))
         {
@@ -107,6 +127,11 @@ class Vip extends CI_Controller {
     }     
      public function genre_videos()
     {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $boundary = $this->input->post('boundary'); 
         if(!empty($boundary))
         {
@@ -131,6 +156,11 @@ class Vip extends CI_Controller {
     
     public function subgenre_songs()
     {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $boundary = $this->input->post('boundary'); 
         if(!empty($boundary))
         {
@@ -158,6 +188,11 @@ class Vip extends CI_Controller {
     
     public function subgenre_videos()
     {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $boundary = $this->input->post('boundary'); 
         if(!empty($boundary))
         {
@@ -208,6 +243,11 @@ class Vip extends CI_Controller {
     }
 
     public function loading() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $data = array();
         $type = $this->input->get('type');
         if($type == "video") {
@@ -218,6 +258,11 @@ class Vip extends CI_Controller {
         
     }
      public function ajax_loading() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $data = array();
         $boundary = $this->input->post('boundary'); 
         if(!empty($boundary))
@@ -231,6 +276,11 @@ class Vip extends CI_Controller {
         $this->load->view('song-loading', $data);
     }
      public function ajax_video_loading() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $data = array();
         $boundary = $this->input->post('boundary'); 
         if(!empty($boundary))
@@ -245,6 +295,11 @@ class Vip extends CI_Controller {
     }
     
      public function ajax_genre_loading() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $genre_id =  $this->input->post('id');
         $data = array();
         $boundary = $this->input->post('boundary'); 
@@ -259,6 +314,11 @@ class Vip extends CI_Controller {
         $this->load->view('song-loading', $data);
     }
     public function ajax_genre_video_loading() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $genre_id =  $this->input->post('id');
         $data = array();
         $boundary = $this->input->post('boundary'); 
@@ -274,6 +334,11 @@ class Vip extends CI_Controller {
     }
     
      public function ajax_subgenre_loading() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $genre_id =  $this->input->post('id');
         $data = array();
          $boundary = $this->input->post('boundary'); 
@@ -288,6 +353,11 @@ class Vip extends CI_Controller {
         $this->load->view('song-loading', $data);
     }
       public function ajax_subgenre_video_loading() {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $genre_id =  $this->input->post('id');
         $data = array();
          $boundary = $this->input->post('boundary'); 
@@ -316,6 +386,11 @@ class Vip extends CI_Controller {
     }
     public function videodescription()
     {  
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $slug = $_POST['file'];
         $update_query = "update `song_lists` set `total_play`=`total_play`+1 where `slug`='$slug'";
         $this->db->query($update_query);
@@ -326,6 +401,11 @@ class Vip extends CI_Controller {
     
     public function songdescription()
     {
+        if ($this->myauth->getUserId() == 6) {
+            $data['isPaid'] = true;
+        } else {
+            $data['isPaid'] = Am_Lite::getInstance()->checkPaid();
+        }
         $slug = $_POST['slug'];
         $update_query = "update `song_lists` set `total_play`=`total_play`+1 where `slug`='$slug'";
         $this->db->query($update_query);
@@ -337,6 +417,7 @@ class Vip extends CI_Controller {
     
     public function downloads($slug){
                 //$slug = $this->input->post('slug');
+            $userId = $this->myauth->getUserId();
                 $play = $this->Song_model->getsongDetail($slug);
                 if ($play) {
                         $path = explode("../", $play->filePath);
@@ -347,83 +428,6 @@ class Vip extends CI_Controller {
                             }
                 } 
     }
-    
-    public function addToCart() {
-        $music = $this->input->post('music');
-        $songs = $this->input->post('songs');
-        $videos = $this->input->post('video');
-
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = array();
-            $_SESSION['cart']['temp'] = array();
-            $_SESSION['cart']['all'] = array();
-            $_SESSION['cart']['video'] = 0;
-            $_SESSION['cart']['song'] = 0;
-        }
-        $_SESSION['cart']['video'] = $_SESSION['cart']['video'] + $videos;
-        $_SESSION['cart']['song'] = $_SESSION['cart']['song'] + $songs;
-
-        if ($_SESSION['cart']['video'] > 10 || $_SESSION['cart']['song'] > 40) {
-            echo json_encode(array('status' => false,'cart_status' => 'full', 'msg' => 'Crate is Full. Please Download Selected Crate Files. Then add new Files..!'));
-            exit();
-        } 
-        if (in_array($music, $_SESSION['cart']['temp'])) {
-            echo json_encode(array('status' => false, 'cart_status' => 'continue', 'msg' => 'Already in cart.'));
-        } else {
-            $detail = $this->Song_model->getsongDetail($music);
-            array_push($_SESSION['cart']['temp'], $music);
-            array_push($_SESSION['cart']['all'], $detail);
-            echo json_encode(array('status' => true, 'cart_status' => 'continue', 'total' => count($_SESSION['cart']['temp']), 'video_in_cart' => $this->videos_in_cart, 'songs_in_cart' => $this->songs_in_cart));
-        }
-    }
-
-    public function removeToCart() {
-        $music = $this->input->post('music');
-        $songs = $this->input->post('songs');
-        $videos = $this->input->post('video');
-        $this->songs_in_cart = $this->songs_in_cart - $songs;
-        $this->videos_in_cart = $this->videos_in_cart - $videos;
-        if (!isset($_SESSION['cart'])) {
-            $_SESSION['cart'] = array();
-            $_SESSION['cart']['temp'] = array();
-            $_SESSION['cart']['all'] = array();
-            $_SESSION['cart']['video'] = 0;
-            $_SESSION['cart']['song'] = 0;
-        } else {
-            $_SESSION['cart']['video'] = $this->videos_in_cart;
-            $_SESSION['cart']['song'] = $this->songs_in_cart;
-        }
-
-        if (!in_array($music, $_SESSION['cart']['temp'])) {
-            echo json_encode(array('status' => false));
-        } else {
-            foreach ($_SESSION['cart']['temp'] as $key => $value) {
-                if ($value == $music) {
-                    unset($_SESSION['cart']['temp'][$key]);
-                }
-            }
-            foreach ($_SESSION['cart']['all'] as $key => $value) {
-                if ($value->slug == $music) {
-                    unset($_SESSION['cart']['all'][$key]);
-                }
-            }
-            echo json_encode(array('status' => true, 'total' => count($_SESSION['cart']['temp'])));
-        }
-    }
-
-//    public function crate() {
-//        $this->myauth->onlyLogin();
-//        if ($this->myauth->getUserId() != 6) {
-//            Am_Lite::getInstance()->checkPaid();
-//        }
-//        $data = array();
-//        $data['nav'] = 'carat';
-//        $data['urlPath'] = '';
-//        $data['cartMusic'] = isset($_SESSION['cart']['all']) ? $_SESSION['cart']['all'] : array();
-//        $this->load->view('crate');
-//        //$this->wondertemplate->setTitle('Carat');
-//        //$this->wondertemplate->renderTemplate('cart', $data);
-//    }
 
     public function downloadZip() {
 
@@ -553,6 +557,10 @@ class Vip extends CI_Controller {
     }        
     
     // end of for the crate functionality
+
+    public function login(){
+        $this->load->view('ajax-login');
+    }
 
 }
 

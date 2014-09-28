@@ -2,7 +2,7 @@
 <html lang="en" class="app">
     <head>
         <meta charset="utf-8" />
-        <title>Musik | Web Application</title>
+        <title>VIP</title>
         <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <!--[if lte IE 8]>
@@ -79,7 +79,7 @@
                     </a>
                     <a href="javascript:void(null)" my-ajax data-url="home" class="navbar-brand text-lt"> <i class="icon-earphones"></i> 
                         <img src="images/logo.png" alt="." class="hide"> 
-                        <span class="hidden-nav-xs m-l-sm">Musik</span> 
+                        <span class="hidden-nav-xs m-l-sm">Vip</span> 
                     </a>
                     <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user"> 
                         <i class="icon-settings"></i> 
@@ -110,22 +110,28 @@
 
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
-                                <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm"> 
-                                    <!--<img src="images/a0.png" alt="...">-->
-                                </span> John.Smith <b class="caret"></b> 
-                            </a>
-                            <ul class="dropdown-menu animated fadeInRight">
-                                <li> <span class="arrow top"></span> 
-                                    <a href="#">Settings</a> 
-                                </li>
-                                <li> <a href="profile.html">Profile</a> 
-                                </li>
+                            <?php if ($this->myauth->isLogin()) : ?>
+                                <a href="javascript:void(0);" class="dropdown-toggle bg clear" data-toggle="dropdown">
+                                    <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm"> 
+                                    </span> <?php echo $this->myauth->userName(); ?> <b class="caret"></b> 
+                                </a>
+                                <ul class="dropdown-menu animated fadeInRight">
+                                    <li> <span class="arrow top"></span> 
+                                        <a href="javascript:void(0);" class="settings">Settings</a> 
+                                    </li>
+                                    <li> <a href="javascript:void(0);" class="profile">Profile</a> 
+                                    </li>
 
-                                <li class="divider"></li>
-                                <li> <a href="modal.lockme.html" data-toggle="ajaxModal">Logout</a> 
-                                </li>
-                            </ul>
+                                    <li class="divider"></li>
+                                    <li> <a href="amember/logout" data-toggle="ajaxModal" class="logout">Logout</a> 
+                                    </li>
+                                </ul>
+                            <?php else : ?>
+                                <a href="javascript:void(0);" class="bg clear login">
+                                    <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm"> 
+                                    </span><i class=" icon-user-follow i-lg"></i> Login</b> 
+                                </a>
+                            <?php endif; ?>
                         </li>
                     </ul>
                 </div>

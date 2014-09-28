@@ -317,6 +317,18 @@ $(document).ready(function() {
 
     // end of the crate functionality
 
+    // login Page
+
+    $("body").on("click",".login",function(){
+        $.ajax({
+            type: "POST",
+            url: base_url + "vip/login/",
+            success: function(data) {
+                $('#bjax-target').html(data);
+            }
+        });
+    });
+
 
 
 });
