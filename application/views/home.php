@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-7">
         <h3 class="font-thin">New Songs</h3> 
-        <div class="row row-sm">
+        <div class="row row-sm"> 
             <?php if (!empty($newSongs)) { ?>
                 <?php for ($i = 0; $i < count($newSongs); $i++) : ?>
                     <div class="col-xs-6 col-sm-3">
@@ -31,7 +31,8 @@
                                     </div>
                                     <div class="bottom padder m-b-sm">
                                         <a href="#" title="Add To Crate" class="pull-right"> 
-                                            <i id="<?php echo $newSongs[$i]['slug'] ?>" class="fa fa-plus-circle add_to_crate"></i> 
+                                            <?php $class = getPlusMinusClass($newSongs[$i]['slug']);  ?>
+                                            <i id="<?php echo $newSongs[$i]['slug'] ?>" class="fa <?php echo $class;  ?> add_to_crate"></i> 
                                         </a>
                                         <a href="#" title="Download"> 
                                             <i id="<?php echo $newSongs[$i]['slug'] ?>" class="fa fa-download download"></i> 
@@ -117,7 +118,8 @@
                                     </div>
                                     <div class="bottom padder m-b-sm">
                                         <a href="#" title="Add To Crate" class="pull-right"> 
-                                             <i id="<?php echo $newVideos[$i]['slug'] ?>" class="fa fa-plus-circle add_to_crate"></i> 
+                                             <?php $class = getPlusMinusClass($newVideos[$i]['slug']);  ?>
+                                             <i id="<?php echo $newVideos[$i]['slug'] ?>" class="fa <?php echo $class;  ?> add_to_crate"></i> 
                                         </a>
                                         <a href="#" title="Download"> 
                                             <i class="fa fa-download"></i> 

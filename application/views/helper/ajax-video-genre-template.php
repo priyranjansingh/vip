@@ -22,8 +22,9 @@
                     </a> 
                 </div>
                 <div class="bottom padder m-b-sm">
+                     <?php $class = getPlusMinusClass($val['slug']);  ?>
                     <a href="#" title="Add To Crate" class="pull-right"> 
-                        <i class="icon icon-drawer"></i> 
+                       <i id="<?php echo $val['slug'] ?>" class="fa <?php echo $class;  ?> add_to_crate"></i> 
                     </a>
                     <a href="#" title="Download"> 
                         <i class="fa fa-download"></i> 

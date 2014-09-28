@@ -7,7 +7,7 @@ class Vip extends CI_Controller {
 
     private $songs_in_cart = 0;
     private $videos_in_cart = 0;
-    
+
     public function __construct() {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
@@ -27,9 +27,9 @@ class Vip extends CI_Controller {
 
     public function home() {
         $data = array();
-        $data['newSongs']  = $this->Song_model->getNewSongs();
+        $data['newSongs'] = $this->Song_model->getNewSongs();
         $data['newVideos'] = $this->Song_model->getNewVideos();
-        $data['topSongs']  = $this->Song_model->getTopSongs();
+        $data['topSongs'] = $this->Song_model->getTopSongs();
         $data['topVideos'] = $this->Song_model->getTopVideos();
         echo $this->load->view('home', $data, true);
     }
@@ -46,147 +46,134 @@ class Vip extends CI_Controller {
         $data['genres'] = $this->load->view('helper/song-genres', $data, true);
         $this->load->view('songs', $data);
     }
-    public function ajax_songs()
-    {
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+
+    public function ajax_songs() {
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array('songType' => '1'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
-        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'1'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists', array('songType' => '1'));
         $total_page = $query_total->num_rows();
-        $data['total_records'] = ceil($total_page/24);
+        $data['total_records'] = ceil($total_page / 24);
         $data['genreName'] = 'All';
         $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
         $this->load->view('ajax-songs', $data);
-    } 
-    public function ajax_videos()
-    {
-       $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+    }
+
+    public function ajax_videos() {
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array('songType' => '2'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
-        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'2'));
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists', array('songType' => '2'));
         $total_page = $query_total->num_rows();
-        $data['total_records'] = ceil($total_page/24);
+        $data['total_records'] = ceil($total_page / 24);
         $data['genreName'] = 'All';
         $data['genres'] = $this->load->view('helper/ajax-video-genres', $data, true);
         $this->load->view('ajax-videos', $data);
-    } 
-    public function genre_songs()
-    {
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
-        $genre_id =  $this->input->post('id');
-        $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
+    }
+
+    public function genre_songs() {
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
+        $genre_id = $this->input->post('id');
+        $genre_query = $this->db->get_where('genre', array("id" => $genre_id));
         $genre_name = $genre_query->row_array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("genre" => $genre_id, 'songType' => '1'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
-        
-        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'));
+
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("genre" => $genre_id, 'songType' => '1'));
         $total_page = $query_total->num_rows();
-        $data['total_records'] = ceil($total_page/24);
-        
+        $data['total_records'] = ceil($total_page / 24);
+
         $data['genreName'] = $genre_name['name'];
         $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
         $this->load->view('ajax-songs', $data);
-        
-    }     
-     public function genre_videos()
-    {
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
-        $genre_id =  $this->input->post('id');
-        $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
+    }
+
+    public function genre_videos() {
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
+        $genre_id = $this->input->post('id');
+        $genre_query = $this->db->get_where('genre', array("id" => $genre_id));
         $genre_name = $genre_query->row_array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("genre" => $genre_id, 'songType' => '2'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
-        
-        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'));
+
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("genre" => $genre_id, 'songType' => '2'));
         $total_page = $query_total->num_rows();
-        $data['total_records'] = ceil($total_page/24);
-        
+        $data['total_records'] = ceil($total_page / 24);
+
         $data['genreName'] = $genre_name['name'];
         $data['genres'] = $this->load->view('helper/ajax-video-genres', $data, true);
         $this->load->view('ajax-videos', $data);
-        
-    }     
-    
-    public function subgenre_songs()
-    {
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
-        $genre_id =  $this->input->post('id');
+    }
+
+    public function subgenre_songs() {
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
+        $genre_id = $this->input->post('id');
         // for getting the genre name
-        $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
+        $genre_query = $this->db->get_where('genre', array("id" => $genre_id));
         $genre_name = $genre_query->row_array();
         // end of getting the genre name
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("subGenre" => $genre_id, 'songType' => '1'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
-        
-        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'));
+
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("subGenre" => $genre_id, 'songType' => '1'));
         $total_page = $query_total->num_rows();
-        $data['total_records'] = ceil($total_page/24);
-        
-        
+        $data['total_records'] = ceil($total_page / 24);
+
+
         $data['genreName'] = $genre_name['name'];
         $data['genres'] = $this->load->view('helper/ajax-song-genres', $data, true);
         $this->load->view('ajax-songs', $data);
-        
-    } 
-    
-    public function subgenre_videos()
-    {
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
-        $genre_id =  $this->input->post('id');
+    }
+
+    public function subgenre_videos() {
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
+        $genre_id = $this->input->post('id');
         // for getting the genre name
-        $genre_query = $this->db->get_where('genre',array("id"=>$genre_id));
+        $genre_query = $this->db->get_where('genre', array("id" => $genre_id));
         $genre_name = $genre_query->row_array();
         // end of getting the genre name
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("subGenre" => $genre_id, 'songType' => '2'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
-        
-        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'));
+
+        $query_total = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("subGenre" => $genre_id, 'songType' => '2'));
         $total_page = $query_total->num_rows();
-        $data['total_records'] = ceil($total_page/24);
-        
-        
+        $data['total_records'] = ceil($total_page / 24);
+
+
         $data['genreName'] = $genre_name['name'];
         $data['genres'] = $this->load->view('helper/ajax-video-genres', $data, true);
         $this->load->view('ajax-videos', $data);
-        
-    } 
-    public function test()
-    {
-      $this->load->view('video-detail');
-    }        
-            
+    }
+
+    public function test() {
+        $this->load->view('video-detail');
+    }
 
     public function videos($id = null) {
         $data = array();
@@ -210,94 +197,91 @@ class Vip extends CI_Controller {
     public function loading() {
         $data = array();
         $type = $this->input->get('type');
-        if($type == "video") {
+        if ($type == "video") {
             $this->load->view('video-loading', $data);
         } else {
             $this->load->view('song-loading', $data);
         }
-        
     }
-     public function ajax_loading() {
+
+    public function ajax_loading() {
         $data = array();
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->get_where('song_lists',array('songType'=>'1'),$offset,$limit);
+        $query = $this->db->get_where('song_lists', array('songType' => '1'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('song-loading', $data);
     }
-     public function ajax_video_loading() {
+
+    public function ajax_video_loading() {
         $data = array();
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array('songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array('songType' => '2'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('video-loading', $data);
     }
-    
-     public function ajax_genre_loading() {
-        $genre_id =  $this->input->post('id');
+
+    public function ajax_genre_loading() {
+        $genre_id = $this->input->post('id');
         $data = array();
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("genre" => $genre_id, 'songType' => '1'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('song-loading', $data);
     }
+
     public function ajax_genre_video_loading() {
-        $genre_id =  $this->input->post('id');
+        $genre_id = $this->input->post('id');
         $data = array();
-        $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("genre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("genre" => $genre_id, 'songType' => '2'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('video-loading', $data);
     }
-    
-     public function ajax_subgenre_loading() {
-        $genre_id =  $this->input->post('id');
+
+    public function ajax_subgenre_loading() {
+        $genre_id = $this->input->post('id');
         $data = array();
-         $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'1'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("subGenre" => $genre_id, 'songType' => '1'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('song-loading', $data);
     }
-      public function ajax_subgenre_video_loading() {
-        $genre_id =  $this->input->post('id');
+
+    public function ajax_subgenre_video_loading() {
+        $genre_id = $this->input->post('id');
         $data = array();
-         $boundary = $this->input->post('boundary'); 
-        if(!empty($boundary))
-        {
-              $limit = ($boundary*24)-24;
-              $offset = 24;
-        }    
+        $boundary = $this->input->post('boundary');
+        if (!empty($boundary)) {
+            $limit = ($boundary * 24) - 24;
+            $offset = 24;
+        }
         $data = array();
-        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists',array("subGenre"=>$genre_id,'songType'=>'2'),$offset,$limit);
+        $query = $this->db->order_by('id', 'DESC')->get_where('song_lists', array("subGenre" => $genre_id, 'songType' => '2'), $offset, $limit);
         $data['songs_result'] = $query->result_array();
         $this->load->view('video-loading', $data);
     }
@@ -308,46 +292,44 @@ class Vip extends CI_Controller {
         $id = $this->input->get('id');
         $list = array('0' => 'All', '1' => 'Acoustic', '2' => 'Ambient', '3' => 'Blues');
         $data['genreName'] = $list[$id];
-        if($type == "video") {
+        if ($type == "video") {
             $this->load->view('helper/video-genres', $data);
         } else {
             $this->load->view('helper/song-genres', $data);
         }
     }
-    public function videodescription()
-    {  
+
+    public function videodescription() {
         $slug = $_POST['file'];
         $update_query = "update `song_lists` set `total_play`=`total_play`+1 where `slug`='$slug'";
         $this->db->query($update_query);
-        $query = $this->db->get_where('song_lists',array("slug"=>$slug));
+        $query = $this->db->get_where('song_lists', array("slug" => $slug));
         $data['result'] = $query->result_array();
-        $this->load->view('ajax-videodetail',$data); 
-    }   
-    
-    public function songdescription()
-    {
+        $this->load->view('ajax-videodetail', $data);
+    }
+
+    public function songdescription() {
         $slug = $_POST['slug'];
         $update_query = "update `song_lists` set `total_play`=`total_play`+1 where `slug`='$slug'";
         $this->db->query($update_query);
-        $query = $this->db->get_where('song_lists',array("slug"=>$slug));
+        $query = $this->db->get_where('song_lists', array("slug" => $slug));
         $data['result'] = $query->row_array();
         echo json_encode($data['result']);
-    }        
-       
-    
-    public function downloads($slug){
-                //$slug = $this->input->post('slug');
-                $play = $this->Song_model->getsongDetail($slug);
-                if ($play) {
-                        $path = explode("../", $play->filePath);
-                            if (file_exists($path[1])) {
-                                $data = file_get_contents($path[1]);
-                                force_download($play->fileName, $data);
-                                exit;
-                            }
-                } 
     }
-    
+
+    public function downloads($slug) {
+        //$slug = $this->input->post('slug');
+        $play = $this->Song_model->getsongDetail($slug);
+        if ($play) {
+            $path = explode("../", $play->filePath);
+            if (file_exists($path[1])) {
+                $data = file_get_contents($path[1]);
+                force_download($play->fileName, $data);
+                exit;
+            }
+        }
+    }
+
     public function addToCart() {
         $music = $this->input->post('music');
         $songs = $this->input->post('songs');
@@ -364,9 +346,9 @@ class Vip extends CI_Controller {
         $_SESSION['cart']['song'] = $_SESSION['cart']['song'] + $songs;
 
         if ($_SESSION['cart']['video'] > 10 || $_SESSION['cart']['song'] > 40) {
-            echo json_encode(array('status' => false,'cart_status' => 'full', 'msg' => 'Crate is Full. Please Download Selected Crate Files. Then add new Files..!'));
+            echo json_encode(array('status' => false, 'cart_status' => 'full', 'msg' => 'Crate is Full. Please Download Selected Crate Files. Then add new Files..!'));
             exit();
-        } 
+        }
         if (in_array($music, $_SESSION['cart']['temp'])) {
             echo json_encode(array('status' => false, 'cart_status' => 'continue', 'msg' => 'Already in cart.'));
         } else {
@@ -481,15 +463,15 @@ class Vip extends CI_Controller {
                     if ($value === '.' || $value === '..') {
                         continue;
                     }
-                    if (is_file($dir.$value)) {
-                        $extension = explode(".", $dir.$value);
+                    if (is_file($dir . $value)) {
+                        $extension = explode(".", $dir . $value);
                         $ext = end($extension);
                         if ($ext == 'zip' || $ext == 'php' || $ext == 'htaccess') {
                             continue;
                         } else {
                             $created_zip_name = $extension[0];
                             if ($created_zip_name == $name_of_zip) {
-                                rename($dir.$value, $dir.$zip_name);
+                                rename($dir . $value, $dir . $zip_name);
                                 header('Location: http://www.videotoolz20.com/xyz123/' . $zip_name);
                             }
                         }
@@ -523,37 +505,44 @@ class Vip extends CI_Controller {
         if ($play)
             $this->Song_model->updateTotalPlay($play->id);
     }
-    
+
     // for the crate functonality
-    public function addTocrate()
-    {
+    public function addTocrate() {
         $crate_array = array();
-        if(!empty($this->session->userdata('crate')))
-        {
+        if (!empty($this->session->userdata('crate'))) {
             $crate_array = $this->session->userdata('crate');
-        }    
+        }
         $slug = $this->input->post('id');
         $flag = $this->input->post('flag');
-        if($flag=='add')
-        {
-             array_push($crate_array,$slug);
-        }  
-        else if($flag=='remove')
-        {
-             $key = array_search($slug, $crate_array);
-             unset($crate_array[$key]);
-        }    
-        $this->session->set_userdata('crate',$crate_array);
+        if ($flag == 'add') {
+            array_push($crate_array, $slug);
+        } else if ($flag == 'remove') {
+            $key = array_search($slug, $crate_array);
+            unset($crate_array[$key]);
+        }
+        $this->session->set_userdata('crate', $crate_array);
         echo count($this->session->userdata('crate'));
-       
     }
 
-    public function crate(){
-        $this->load->view('ajax-crate'); 
-    }        
-    
-    // end of for the crate functionality
+    public function crate() {
+        $crate = $this->session->userdata('crate');
+        $song_array = array();
+        $video_array = array();
+        foreach ($crate as $val) {
+            $song_detail = $this->Song_model->getsongDetail($val);
+            if ($song_detail->songType == '1') {
+                $song_array[] = $song_detail;
+            } else if ($song_detail->songType == '2') {
+                $video_array[] = $song_detail;
+            }
+        }
+        $data['song_array']  =  $song_array;
+        $data['video_array'] =  $video_array;
 
+        $this->load->view('ajax-crate', $data);
+    }
+
+    // end of for the crate functionality
 }
 
 /* End of file welcome.php */
